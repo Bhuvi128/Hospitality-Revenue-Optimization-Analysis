@@ -2,7 +2,7 @@
 
 ![Hospitality](images/Hospitality.jpg)
 
-## Table of Contents
+## 📑Table of Contents
 
 - [Project Overview](#project-overview)
 - [Data Sources](#data-sources)
@@ -15,13 +15,13 @@
 - [Results/Findings](#resultsfindings)
 - [Recommendations](#recommendations)
 
-### Project Overview
+### 🗂️Project Overview
 
 This project is focused on helping a luxury hotel chain—AtliQ Grands—leverage its historical booking data to make smarter business decisions. 
 The goal is to analyze patterns in bookings, room preferences, cancellations, and seasonal trends to uncover insights that can optimize revenue, reduce losses, and 
 improve operational efficiency.
 
-### Data Sources
+### 🗃️Data Sources
 
 <b>fact_bookings:</b> This table represents detailed information about bookings, property id in which property the booking made, when they booked, check-in and check-out date, no. of guests per booking, room category, in which 
 booking platform they booked, how many ratings were given per booking, bookings status whether the booking was checked out, Cancelled or No show, How much revenue generated and
@@ -32,7 +32,7 @@ How many rooms are available on that day? <br>
 <b>dim_hotels:</b> Contains information about Property name, category, and city for particular Property_id. <br>
 <b>dim_date:</b> Contains information about day type, week no., month and year in which month, year, and week no the check-in was done, whether the bookings are in weekdays or weekends. <br>
 
-### Tools
+### 🖥️Tools
 
 - Excel - Data Cleaning
 - Sql - Creating database, tables, data retrieval, and data querying
@@ -43,17 +43,17 @@ How many rooms are available on that day? <br>
 - Scipy - Statistical testing and analysis
 - Tableau - Creating interactive dashboard and reports
 
-### Data Cleaning and Preparation
+### 🔍Data Cleaning and Preparation
 
 To import tables to the MySQL server, I first cleaned and prepared the data using Excel by performing data type conversions and handling null values, ensuring the dataset was ready for seamless integration into the SQL tables.
 
-### Database & tables creation
+### 🛢️Database & tables creation
 
 After preparing and cleaning the data in Excel by handling null values and converting data types, I created the database and corresponding tables in MySQL. Then, I imported the cleaned data into these tables.<br>
 
 ![ER Diagram](images/ER_Diagram.png)
 
-### SQL Queries
+### 🧾SQL Queries
 
 Executed SQL queries on the atliq_hospitality database to extract relevant data for exploratory data analysis (EDA) in Python. Here are some Queries.<br>
 
@@ -165,7 +165,7 @@ order by fa.check_in_date;
 
 To view the complete SQL Script, [View SQL Script](https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Analysis.sql)
 
-### Exploratory Data Analysis (EDA)
+### ✨🔍Exploratory Data Analysis (EDA)
 
 Performed in-depth exploratory analysis to understand booking behaviors, revenue trends, and cancellation patterns.EDA has been performed on various factors, such as:<br>
 
@@ -193,13 +193,13 @@ Performed in-depth exploratory analysis to understand booking behaviors, revenue
 
 To view the Python notebook, [Python notebook](https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Optimzation.ipynb)
 
-### Interactive dashboard
+### 📊Interactive dashboard
 
 Designed and developed an interactive Tableau dashboard to enable stakeholders to monitor hotel performance trends and metrics over time.
 
 [![Dashboard Overview](Hospitality_Revenue_Analysis_Dashboard.png)](https://public.tableau.com/app/profile/bhuvanendiran.s/viz/HospitalityRevenueOptimizationDashboard/HospitalityRevenueOptimizationDashboard)
 
-### Results/Findings
+### 📝Results/Findings
 
 - <b>Booking Behavior</b>
   - The majority of bookings are successfully checked out.
@@ -244,7 +244,7 @@ Designed and developed an interactive Tableau dashboard to enable stakeholders t
   - Capacity is stable, but bookings are consistently below full occupancy.
   - Clear weekly cycles indicate predictable customer behavior.
 
-### Recommendations
+### 📝🚀Recommendations
 
 To regain its lost market share and revenue in the luxury and business hotel segment, AtliQ Grands should adopt a data-driven, customer-centric strategy that emphasizes flexible pricing, targeted marketing, and operational agility.<br>
 The analysis reveals patterns in customer behavior (e.g., weekday bookings with high cancellations, underutilized room types, and regional disparities in performance) that highlight the need for tailored interventions across booking periods, room categories, and locations.<br>
