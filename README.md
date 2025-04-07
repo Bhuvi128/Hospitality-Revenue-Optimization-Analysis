@@ -64,7 +64,7 @@ Performed in-depth exploratory analysis to understand booking behaviors, revenue
 
 ### Interactive dashboard
 
-Created an Interactive dashboard using Tableau for Stakeholders to monitor their hotel's performance periodically.
+Designed and developed an interactive Tableau dashboard to enable stakeholders to monitor hotel performance trends and metrics over time.
 
 ### Results/Findings
 
