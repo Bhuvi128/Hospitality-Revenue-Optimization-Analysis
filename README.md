@@ -53,7 +53,8 @@ After preparing and cleaning the data in Excel by handling null values and conve
 Performed in-depth exploratory analysis to understand booking behaviors, revenue trends, and cancellation patterns.EDA has been performed on various factors, such as:<br>
 
 - <b>Distribution Analysis of:</b>
-  - Revenue (Generated vs. Realized)
+  - Revenue generated
+    ![Distribution of Revenue generated](images/Revenue_generated.png)
   - Revenue (Generated vs. Realized) by cancelled bookings
   - Booking Status (Successful vs. Cancelled)
   - Property Name, City, Category, Room Class, Ratings, Number of Guests, Booking platform, booking month, and stay duration.
