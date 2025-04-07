@@ -46,7 +46,14 @@ To import tables to the MySQL server, I first cleaned and prepared the data usin
 
 ### Database & tables creation
 
-After preparing and cleaning the data in Excel by handling null values and converting data types, I created the database and corresponding tables in MySQL. Then, I imported the cleaned data into these tables.
+After preparing and cleaning the data in Excel by handling null values and converting data types, I created the database and corresponding tables in MySQL. Then, I imported the cleaned data into these tables.<br>
+
+![ER Diagram](images/ER_Diagram.png)
+
+### SQL Querying
+
+Executed SQL queries on the atliq_hospitality database to extract relevant data for exploratory data analysis (EDA) in Python.
+To view SQL queries [Click here]()
 
 ### Exploratory Data Analysis (EDA)
 
@@ -54,7 +61,6 @@ Performed in-depth exploratory analysis to understand booking behaviors, revenue
 
 - <b>Distribution Analysis of:</b>
   - Revenue generated
-![Distribution of Revenue generated](images/Revenue_generated.png)
   - Revenue (Generated vs. Realized) by cancelled bookings
   - Booking Status (Successful vs. Cancelled)
   - Property Name, City, Category, Room Class, Ratings, Number of Guests, Booking platform, booking month, and stay duration.
