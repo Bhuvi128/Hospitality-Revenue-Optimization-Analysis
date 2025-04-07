@@ -40,26 +40,89 @@ After preparing and cleaning the data in Excel by handling null values and conve
 
 Performed in-depth exploratory analysis to understand booking behaviors, revenue trends, and cancellation patterns.EDA has been performed on various factors, such as:<br>
 
-<b>Distribution Analysis of:</b>
-- Revenue (Generated vs. Realized)
-- Revenue (Generated vs. Realized) by cancelled bookings
-- Booking Status (Successful vs. Canceled)
-- Property Name, City, Category, Room Class, Ratings, Number of Guests, Booking platform, booking month, and stay duration.
-- Successful bookings vs Capacity by day type.
-- Successful bookings vs Capacity by week no.
-- Successful bookings vs Capacity over time.
+- <b>Distribution Analysis of:</b>
+  - Revenue (Generated vs. Realized)
+  - Revenue (Generated vs. Realized) by cancelled bookings
+  - Booking Status (Successful vs. Cancelled)
+  - Property Name, City, Category, Room Class, Ratings, Number of Guests, Booking platform, booking month, and stay duration.
+  - Successful bookings and cancelled bookings by day type.
+  - Successful bookings and cancelled bookings by week no.
+  - Successful bookings vs Capacity over time.
 
-<b>Revenue Relationship:</b>
-- Analyzed the correlation between generated and realized revenue.
-- Analyzed the correlation between generated and realized revenue with various factors like room class, property name, city, category, and booking status.
+- <b>Revenue Relationship:</b>
+  - Analyzed the correlation between generated and realized revenue.
+  - Analyzed the correlation between generated and realized revenue with various factors like room class, property name, city, category, and booking status.
 
-<b>Hypothesis Testing:</b>
-- Test the percentage of revenue realized after cancellations using statistical methods.
+- <b>Hypothesis Testing:</b>
+  - Test the percentage of revenue realized after cancellations using statistical methods.
 
-<b>Cancellation Patterns:</b>
-- Explored how Cancellations vary across Room Class, Property Name, Category, City, Ratings, Number of Guests, Booking month, Booking Platform, Stay Duration, and Day Type
+- <b>Cancellation Patterns:</b>
+  - Explored how Cancellations vary across Room Class, Property Name, Category, City, Ratings, Number of Guests, Booking month, Booking Platform, Stay Duration, and Day Type
 
-<b>Successful bookings vs Capacity Over time</b>
-- Compare successful bookings with capacity using Room Class, Property Name, City, Category, Month with Year, Week No, and Day Type.
+- <b>Successful bookings vs Capacity Over time</b>
+  - Compare successful bookings with capacity using Room Class, Property Name, City, Category, Month with Year, Week No, and Day Type.
 
+### Interactive dashboard
 
+Created an Interactive dashboard using Tableau for Stakeholders to monitor their hotel's performance periodically.
+
+### Results/Findings
+
+- <b>Booking Behavior</b>
+  - The majority of bookings are successfully checked out.
+  - Cancellations are frequent; no-shows are minimal.
+  - Indicates proactive cancellation behavior by guests.
+
+- <b>Revenue Insights</b>
+  - Revenue Generated is skewed with a few high-value bookings.
+  - Revenue Realized varies widely due to cancellations and refunds.
+  - There is a clear positive correlation between generated and realized revenue.
+
+- <b>Impact of Cancellations</b>
+  - Cancelled bookings yield minimal revenue.
+  - High-value bookings are more prone to financial loss on cancellation.
+  - Suggests need for refined refund policies for premium bookings.
+
+- <b>Refund Consistency</b>
+  - Statistical tests confirm a uniform refund pattern (~60% refunded).
+  - Indicates a stable and predictable cancellation policy.
+
+- <b>Room Class & Property Performance</b>
+  - Elite and Standard rooms are most preferred.
+  - Presidential rooms show a high variance in revenue.
+  - Luxury properties outperform Business ones in booking volume.
+  - Atliq Palace, Atliq Exotica, and Atliq City are top-performing properties.
+  - Atliq Seasons is underperforming, indicating potential areas for improvement.
+
+- <b>City-Wise Trends</b>
+  - Mumbai dominates in bookings, followed by Hyderabad and Bangalore.
+  - Delhi underperforms, pointing to potential strategic gaps.
+
+- <b>Bookings by Day Type (Weekday vs Weekend)</b>
+  - Weekdays see higher booking activity — both successful and cancelled.
+  - Weekend bookings are fewer but more committed, with lower cancellation rates.
+  - Suggests tentative bookings happen on weekdays and leisure/stable bookings on weekends.
+
+- <b>Bookings by Week Number</b>
+  - Bookings stay fairly consistent across weeks, except for a dip in Week 32 — could be due to seasonality or data issues.
+  - Weeks 27–29 show higher cancellations, possibly due to external factors (e.g., weather, pricing).
+ 
+- <b>Bookings vs Capacity Over Time</b>
+  - Capacity is stable, but bookings are consistently below full occupancy.
+  - Clear weekly cycles indicate predictable customer behavior.
+
+### Recommendations
+
+To regain its lost market share and revenue in the luxury and business hotel segment, AtliQ Grands should adopt a data-driven, customer-centric strategy that emphasizes flexible pricing, targeted marketing, and operational agility.<br>
+The analysis reveals patterns in customer behavior (e.g., weekday bookings with high cancellations, underutilized room types, and regional disparities in performance) that highlight the need for tailored interventions across booking periods, room categories, and locations.<br>
+
+Key areas of focus should include:
+
+- <b>Dynamic Pricing & Promotions:</b> Use demand forecasting to align pricing and offers with booking trends and seasonal patterns.
+- <b>Product Repositioning:</b> Rebrand or bundle underperforming room types and properties to better meet customer expectations.
+- <b>City-Specific Strategies:</b> Allocate resources based on city-level performance, doubling down on high-performing regions and investigating issues in weaker markets.
+- <b>Customer Retention & Personalization:</b> Introduce loyalty programs and personalized marketing to build long-term customer relationships and reduce cancellations.
+- <b>Operational Efficiency:</b> Align staffing and capacity with demand to improve profitability during low-traffic periods.
+- <b>Refund Policies:</b> Implement Stricter Cancellation policies and reduce the refund percentage to avoid higher revenue loss for cancelled bookings.
+
+By integrating these insights into strategic decision-making, AtliQ Grands can position itself as a forward-thinking, resilient brand in India’s competitive hospitality industry, leading to improved occupancy, revenue, and customer satisfaction.
