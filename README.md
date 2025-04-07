@@ -66,6 +66,8 @@ Performed in-depth exploratory analysis to understand booking behaviors, revenue
 
 Designed and developed an interactive Tableau dashboard to enable stakeholders to monitor hotel performance trends and metrics over time.
 
+[![Dashboard Overview](Hospitality_Revenue_Analysis_Dashboard.png)](https://public.tableau.com/app/profile/bhuvanendiran.s/viz/HospitalityRevenueOptimizationDashboard/HospitalityRevenueOptimizationDashboard)
+
 ### Results/Findings
 
 - <b>Booking Behavior</b>
