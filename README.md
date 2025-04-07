@@ -7,6 +7,7 @@
 - [Tools](#tools)
 - [Data Cleaning and Preparation](#data-cleaning-and-preparation)
 - [Database & tables creation](#database--tables-creation)
+- [SQL Queries](#sql-queries)
 - [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
 - [Interactive dashboard](#interactive-dashboard)
 - [Results/Findings](#resultsfindings)
@@ -50,7 +51,7 @@ After preparing and cleaning the data in Excel by handling null values and conve
 
 ![ER Diagram](images/ER_Diagram.png)
 
-### SQL Querying
+### SQL Queries
 
 Executed SQL queries on the atliq_hospitality database to extract relevant data for exploratory data analysis (EDA) in Python. Here are some Queries.<br>
 
@@ -160,7 +161,7 @@ group by fa.check_in_date, dd.day_type
 order by fa.check_in_date;
 ```
 
-To view SQL queries, [Click here](https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Analysis.sql)
+To view the complete SQL Script, [View SQL Script](https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Analysis.sql)
 
 ### Exploratory Data Analysis (EDA)
 
@@ -187,6 +188,8 @@ Performed in-depth exploratory analysis to understand booking behaviors, revenue
 
 - <b>Successful bookings vs Capacity Over time</b>
   - Compare successful bookings with capacity using Room Class, Property Name, City, Category, Month with Year, Week No, and Day Type.
+
+To view Python notebook, 
 
 ### Interactive dashboard
 
