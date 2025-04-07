@@ -1,5 +1,7 @@
 # Hospitality Revenue Optimization
 
+![Hospitality](images/Hospitality.jpg)
+
 ## Table of Contents
 
 - [Project Overview](#project-overview)
@@ -189,7 +191,7 @@ Performed in-depth exploratory analysis to understand booking behaviors, revenue
 - <b>Successful bookings vs Capacity Over time</b>
   - Compare successful bookings with capacity using Room Class, Property Name, City, Category, Month with Year, Week No, and Day Type.
 
-To view Python notebook, 
+To view the Python notebook, [Python notebook](https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Optimzation.ipynb)
 
 ### Interactive dashboard
 
