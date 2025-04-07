@@ -54,7 +54,7 @@ Performed in-depth exploratory analysis to understand booking behaviors, revenue
 
 - <b>Distribution Analysis of:</b>
   - Revenue generated
-  ![Distribution of Revenue generated](images/Revenue_generated.png)
+![Distribution of Revenue generated](images/Revenue_generated.png)
   - Revenue (Generated vs. Realized) by cancelled bookings
   - Booking Status (Successful vs. Cancelled)
   - Property Name, City, Category, Room Class, Ratings, Number of Guests, Booking platform, booking month, and stay duration.
