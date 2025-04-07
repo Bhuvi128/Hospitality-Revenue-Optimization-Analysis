@@ -52,8 +52,115 @@ After preparing and cleaning the data in Excel by handling null values and conve
 
 ### SQL Querying
 
-Executed SQL queries on the atliq_hospitality database to extract relevant data for exploratory data analysis (EDA) in Python.
-To view SQL queries [Click here]()
+Executed SQL queries on the atliq_hospitality database to extract relevant data for exploratory data analysis (EDA) in Python. Here are some Queries.<br>
+
+1. How are bookings distributed among room class?
+
+```
+select dr.room_class, count(*) total_bookings
+from dim_rooms dr right join fact_bookings fb
+on dr.room_id = fb.room_category
+group by dr.room_class;
+```
+
+2. For canceled bookings, what is the revenue generated and realized for each room class?
+
+```
+select dr.room_class, booking_status, revenue_generated, revenue_realized
+from
+(select * from fact_bookings
+where booking_status = 'Cancelled') fb left join dim_rooms dr
+on fb.room_category = dr.room_id;
+```
+
+3. Do booking platforms impact revenue loss from cancellations?
+
+```
+with platform_revenue as (
+select booking_platform, booking_status, revenue_generated, revenue_realized
+from fact_bookings
+)
+select * from platform_revenue
+where booking_status = 'Cancelled';
+```
+
+4. What is the typical stay duration for most bookings?
+
+```
+select datediff(checkout_date, check_in_date) stay_duration, 
+count(*) total_bookings
+from fact_bookings
+group by stay_duration
+order by stay_duration;
+```
+
+5. Are cancellations happening more on weekends or weekdays?
+
+```
+select dd.day_type, 
+sum(case when fb.booking_status = 'Cancelled' then 1 else 0 end) cancelled_bookings,
+sum(case when fb.booking_status != 'Cancelled' then 1 else 0 end) successfull_bookings
+from fact_bookings fb left join dim_date dd
+on fb.check_in_date = dd.date_d
+group by dd.day_type
+order by cancelled_bookings desc;
+```
+
+6. Do specific weeks have higher or lower successful and cancelled bookings?
+
+```
+select dd.week_no, 
+sum(case when fb.booking_status = 'Cancelled' then 1 else 0 end) cancelled_bookings,
+sum(case when fb.booking_status != 'Cancelled' then 1 else 0 end) successfull_bookings
+from fact_bookings fb left join dim_date dd
+on fb.check_in_date = dd.date_d
+group by dd.week_no
+order by cancelled_bookings, successfull_bookings;
+```
+
+7. How many successful bookings and capacity in particular check-in date and particular room class?
+
+```
+select fa.check_in_date, dr.room_class,
+sum(fa.successful_bookings) as total_successful_bookings,
+sum(fa.capacity) as total_capacity
+from fact_aggregated_bookings fa
+left join dim_rooms dr
+on fa.room_category = dr.room_id
+group by fa.check_in_date, dr.room_class
+order by fa.check_in_date;
+```
+
+8. What is the revenue generated and realized by booking month?
+
+```
+select month(booking_date) booking_month, booking_status, revenue_generated, revenue_realized
+from fact_bookings
+order by booking_month;
+```
+
+9. What is the revenue generated and realized by property city and booking status?
+
+```
+select dh.city, fb.booking_status, fb.revenue_generated, fb.revenue_realized
+from dim_hotels dh right join fact_bookings fb
+on dh.property_id = fb.property_id;
+```
+
+10. How many successful bookings and capacity in particular check-in date and particular day type?
+
+```
+select fa.check_in_date, dd.day_type,
+sum(fa.successful_bookings) as total_successful_bookings,
+sum(fa.capacity) as total_capacity
+from fact_aggregated_bookings fa
+left join dim_date dd
+on fa.check_in_date = dd.date_d
+group by fa.check_in_date, dd.day_type
+order by fa.check_in_date;
+```
+
+To view SQL queries, [Click here](https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Analysis.sql)
 
 ### Exploratory Data Analysis (EDA)
 
