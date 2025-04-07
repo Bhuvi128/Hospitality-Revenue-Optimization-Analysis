@@ -20,7 +20,7 @@ How many rooms are available on that day? <br>
 ### Tools
 
 - Excel - Data Cleaning
-- Sql - Data retrieval and querying
+- Sql - Creating database, tables, data retrieval, and data querying
 - Python - Exploratory Data analysis
 - Sqlalchemy - Loading SQL data into python
 - Pandas - Data manipulation
