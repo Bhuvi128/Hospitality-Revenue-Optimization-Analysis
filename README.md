@@ -49,7 +49,7 @@ To import tables to the MySQL server, I first cleaned and prepared the data usin
 
 ### 🛢️Database & tables creation
 
-After preparing and cleaning the data in Excel by handling null values and converting data types, I created the database and corresponding tables in MySQL. Then, I imported the cleaned data into these tables.<br>
+After preparing and cleaning the data in Excel by handling null values and converting data types, I created the database and corresponding tables in MySQL. Then, I imported the cleaned data into these tables. The database schema is illustrated in the image below.<br>
 
 ![ER Diagram](images/ER_Diagram.png)
 
