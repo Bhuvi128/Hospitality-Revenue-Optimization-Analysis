@@ -28,6 +28,38 @@ How many rooms are available on that day? <br>
 - Scipy - Statistical testing and analysis
 - Tableau - Creating interactive dashboard and reports
 
+### Data Cleaning and Preparation
 
+To import tables to the MySQL server, I first cleaned and prepared the data using Excel by performing data type conversions and handling null values, ensuring the dataset was ready for seamless integration into the SQL tables.
+
+### Database & tables creation
+
+After preparing and cleaning the data in Excel by handling null values and converting data types, I created the database and corresponding tables in MySQL. Then, I imported the cleaned data into these tables.
+
+### Exploratory Data Analysis (EDA)
+
+Performed in-depth exploratory analysis to understand booking behaviors, revenue trends, and cancellation patterns.EDA has been performed on various factors, such as:<br>
+
+<b>Distribution Analysis of:</b>
+- Revenue (Generated vs. Realized)
+- Revenue (Generated vs. Realized) by cancelled bookings
+- Booking Status (Successful vs. Canceled)
+- Property Name, City, Category, Room Class, Ratings, Number of Guests, Booking platform, booking month, and stay duration.
+- Successful bookings vs Capacity by day type.
+- Successful bookings vs Capacity by week no.
+- Successful bookings vs Capacity over time.
+
+<b>Revenue Relationship:</b>
+- Analyzed the correlation between generated and realized revenue.
+- Analyzed the correlation between generated and realized revenue with various factors like room class, property name, city, category, and booking status.
+
+<b>Hypothesis Testing:</b>
+- Test the percentage of revenue realized after cancellations using statistical methods.
+
+<b>Cancellation Patterns:</b>
+- Explored how Cancellations vary across Room Class, Property Name, Category, City, Ratings, Number of Guests, Booking month, Booking Platform, Stay Duration, and Day Type
+
+<b>Successful bookings vs Capacity Over time</b>
+- Compare successful bookings with capacity using Room Class, Property Name, City, Category, Month with Year, Week No, and Day Type.
 
 
