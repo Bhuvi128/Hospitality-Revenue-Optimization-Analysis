@@ -5,6 +5,12 @@
 - [Project Overview](#project-overview)
 - [Data Sources](#data-sources)
 - [Tools](#tools)
+- [Data Cleaning and Preparation](#data-cleaning-and-preparation)
+- [Database & tables creation](#database--tables-creation)
+- [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
+- [Interactive dashboard](#interactive-dashboard)
+- [Results/Findings](#resultsfindings)
+- [Recommendations](#recommendations)
 
 ### Project Overview
 
