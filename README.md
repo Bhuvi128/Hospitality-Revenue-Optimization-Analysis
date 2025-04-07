@@ -55,112 +55,127 @@ After preparing and cleaning the data in Excel by handling null values and conve
 
 ### 🧾SQL Queries
 
-Executed SQL queries on the atliq_hospitality database to extract relevant data for exploratory data analysis (EDA) in Python. Here are some Queries.<br>
+Executed SQL queries on the atliq_hospitality database to extract relevant data from multiple tables, joined them meaningfully, cleaned and filtered records based on booking status, performed initial aggregations like total revenue and guest distribution, and reduced the processing load in Python by preparing a structured dataset for efficient exploratory data analysis.<br>
 
-1. How are bookings distributed among room class?
+1. Booking status distribution
 
+```sql
+select booking_status, count(*) as total_bookings
+from fact_bookings
+group by booking_status;
 ```
-select dr.room_class, count(*) total_bookings
+
+2. Room class distribution
+
+```sql
+select dr.room_class, count(*) as total_bookings
 from dim_rooms dr right join fact_bookings fb
 on dr.room_id = fb.room_category
 group by dr.room_class;
 ```
 
-2. For canceled bookings, what is the revenue generated and realized for each room class?
+3. Booking trends by month
 
-```
-select dr.room_class, booking_status, revenue_generated, revenue_realized
-from
-(select * from fact_bookings
-where booking_status = 'Cancelled') fb left join dim_rooms dr
-on fb.room_category = dr.room_id;
-```
-
-3. Do booking platforms impact revenue loss from cancellations?
-
-```
-with platform_revenue as (
-select booking_platform, booking_status, revenue_generated, revenue_realized
+```sql
+select monthname(booking_date) booking_month, count(*) as total_bookings
 from fact_bookings
-)
-select * from platform_revenue
-where booking_status = 'Cancelled';
+group by booking_month
+order by field(booking_month, 'April', 'May', 'June', 'July');
 ```
 
-4. What is the typical stay duration for most bookings?
+4. Platform-wise booking status
 
-```
-select datediff(checkout_date, check_in_date) stay_duration, 
-count(*) total_bookings
+```sql
+select booking_platform, booking_status,
+count(*) as total_bookings
 from fact_bookings
-group by stay_duration
-order by stay_duration;
+group by booking_platform, booking_status
+order by total_bookings;
 ```
 
-5. Are cancellations happening more on weekends or weekdays?
+5. Stay duration trends by booking status
 
+```sql
+select datediff(checkout_date, check_in_date) as stay_duration, 
+booking_status,
+count(*) as total_bookings
+from fact_bookings
+group by stay_duration, booking_status
+order by stay_duration, total_bookings;
 ```
+
+6. Average revenue generated vs realized per booking status
+
+```sql
+select booking_status, 
+count(*) as total_bookings, 
+round(sum(revenue_generated),2) as total_revenue_generated, 
+round(sum(revenue_realized),2) as total_revenue_realized,
+round(avg(revenue_generated),2) as avg_revenue_generated, 
+round(avg(revenue_realized),2) as avg_revenue_realized,
+round(avg(revenue_generated - revenue_realized),2) as avg_revenue_loss_per_booking,
+round(100 * (sum(revenue_generated) - sum(revenue_realized)) / sum(revenue_generated)) as revenue_loss_percent
+from fact_bookings
+group by booking_status
+order by total_bookings;
+```
+
+7. Average revenue generated vs realized per property category
+
+```sql
+select dh.category, 
+count(*) as total_bookings,
+round(sum(revenue_generated),2) as total_revenue_generated, 
+round(sum(revenue_realized),2) as total_revenue_realized,
+round(avg(fb.revenue_generated),2) as avg_revenue_generated, 
+round(avg(fb.revenue_realized),2) as avg_revenue_realized,
+round(avg(revenue_generated - revenue_realized),2) as avg_revenue_loss_per_booking,
+round(100 * (sum(revenue_generated) - sum(revenue_realized)) / sum(revenue_generated)) as revenue_loss_percent
+from fact_bookings fb left join dim_hotels dh
+on fb.property_id = dh.property_id
+group by dh.category
+order by total_bookings;
+```
+
+8. Daily successful bookings vs capacity per city
+
+```sql
+select fa.check_in_date, dh.city,
+sum(fa.successful_bookings) as total_successful_bookings,
+sum(fa.capacity) as total_capacity,
+round(100 * sum(successful_bookings) / sum(capacity),2) as utilization_percent
+from fact_aggregated_bookings fa
+left join dim_hotels dh
+on fa.property_id = dh.property_id
+group by fa.check_in_date, dh.city
+order by fa.check_in_date;
+```
+
+9. Daily successful bookings vs capacity per month with year
+
+```sql
+select fa.check_in_date, dd.mmm_yy,
+sum(fa.successful_bookings) as total_successful_bookings,
+sum(fa.capacity) as total_capacity,
+round(100 * sum(successful_bookings) / sum(capacity),2) as utilization_percent
+from fact_aggregated_bookings fa
+left join dim_date dd
+on fa.check_in_date = dd.date_d
+group by fa.check_in_date, dd.mmm_yy
+order by fa.check_in_date;
+```
+
+10. Are cancellations happening more on weekends or weekdays?
+
+```sql
 select dd.day_type, 
 sum(case when fb.booking_status = 'Cancelled' then 1 else 0 end) cancelled_bookings,
-sum(case when fb.booking_status != 'Cancelled' then 1 else 0 end) successfull_bookings
+sum(case when fb.booking_status != 'Cancelled' then 1 else 0 end) successfull_bookings,
+round(100 * sum(case when booking_status = 'Cancelled' then 1 else 0 end) / count(*),2) as cancellation_rate_pct
 from fact_bookings fb left join dim_date dd
 on fb.check_in_date = dd.date_d
 group by dd.day_type
 order by cancelled_bookings desc;
-```
-
-6. Do specific weeks have higher or lower successful and cancelled bookings?
-
-```
-select dd.week_no, 
-sum(case when fb.booking_status = 'Cancelled' then 1 else 0 end) cancelled_bookings,
-sum(case when fb.booking_status != 'Cancelled' then 1 else 0 end) successfull_bookings
-from fact_bookings fb left join dim_date dd
-on fb.check_in_date = dd.date_d
-group by dd.week_no
-order by cancelled_bookings, successfull_bookings;
-```
-
-7. How many successful bookings and capacity in particular check-in date and particular room class?
-
-```
-select fa.check_in_date, dr.room_class,
-sum(fa.successful_bookings) as total_successful_bookings,
-sum(fa.capacity) as total_capacity
-from fact_aggregated_bookings fa
-left join dim_rooms dr
-on fa.room_category = dr.room_id
-group by fa.check_in_date, dr.room_class
-order by fa.check_in_date;
-```
-
-8. What is the revenue generated and realized by booking month?
-
-```
-select month(booking_date) booking_month, booking_status, revenue_generated, revenue_realized
-from fact_bookings
-order by booking_month;
-```
-
-9. What is the revenue generated and realized by property city and booking status?
-
-```
-select dh.city, fb.booking_status, fb.revenue_generated, fb.revenue_realized
-from dim_hotels dh right join fact_bookings fb
-on dh.property_id = fb.property_id;
-```
-
-10. How many successful bookings and capacity in particular check-in date and particular day type?
-
-```
-select fa.check_in_date, dd.day_type,
-sum(fa.successful_bookings) as total_successful_bookings,
-sum(fa.capacity) as total_capacity
-from fact_aggregated_bookings fa
-left join dim_date dd
-on fa.check_in_date = dd.date_d
-group by fa.check_in_date, dd.day_type
-order by fa.check_in_date;
 ```
 
 To view the complete SQL Script, [View SQL Script](https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Analysis.sql)
