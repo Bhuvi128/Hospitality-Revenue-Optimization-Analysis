@@ -112,7 +112,7 @@ select revenue_generated, revenue_realized from fact_bookings;
 select booking_status, revenue_generated, revenue_realized
 from fact_bookings;  
 
-/* How bookings are distributed among room class */
+/* How are bookings distributed among room class */
 
 select dr.room_class, count(*) total_bookings
 from dim_rooms dr right join fact_bookings fb
@@ -257,7 +257,7 @@ from fact_bookings
 where booking_status = 'Cancelled'
 order by stay_duration;
 
-/* Is cancellations happening more in weekend or weekday */
+/* Are cancellations happening more on weekends or weekdays */
 
 select dd.day_type, 
 sum(case when fb.booking_status = 'Cancelled' then 1 else 0 end) cancelled_bookings,
@@ -267,7 +267,7 @@ on fb.check_in_date = dd.date_d
 group by dd.day_type
 order by cancelled_bookings desc;
 
-/* Is specific week no have higher or lower successful and cancelled bookings */
+/* Do specific weeks have higher or lower successful and cancelled bookings? */
 
 select dd.week_no, 
 sum(case when fb.booking_status = 'Cancelled' then 1 else 0 end) cancelled_bookings,
