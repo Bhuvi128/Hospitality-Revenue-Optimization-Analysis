@@ -19,5 +19,13 @@ How many rooms are available on that day? <br>
 
 ### Tools
 
+- Sql - Data cleaning, retrieval, and querying
+- Python - Exploratory Data analysis
+- Sqlalchemy - Loading SQL data into python
+- Pandas - Data manipulation
+- Matplotlib & Seaborn - Data visualization
+- Scipy - Statistical testing and analysis
+- Tableau - Creating interactive dashboard and reports
+
 
 
