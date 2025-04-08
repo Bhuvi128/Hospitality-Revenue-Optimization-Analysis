@@ -233,7 +233,7 @@ Designed and developed an interactive Tableau dashboard to enable stakeholders t
   <a href="https://public.tableau.com/app/profile/bhuvanendiran.s/viz/HospitalityRevenueOptimizationDashboard/HospitalityRevenueOptimizationDashboard" target="_blank" style="text-decoration:none;">
     <img src="https://img.shields.io/badge/View-Dashboard-blue?style=for-the-badge&logo=tableau" alt="View Dashboard">
   </a>
-
+  
   <a href="https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/tree/main/Tableau%20dashobard" target="_blank" style="text-decoration:none;">
     <img src="https://img.shields.io/badge/Download-Dashboard-brightgreen?style=for-the-badge&logo=github" alt="Download Dashboard">
   </a>
