@@ -1,0 +1,3192 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20251.25.0313.2002                               -->
+<workbook original-version='18.1' source-build='2025.1.0 (20251.25.0313.2002)' source-platform='win' version='18.1' xml:base='https://public.tableau.com' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <AccessibleZoneTabOrder />
+    <AnimationOnByDefault />
+    <AutoCreateAndUpdateDSDPhoneLayouts />
+    <IntuitiveSorting />
+    <IntuitiveSorting_SP2 />
+    <MapboxVectorStylesAndLayers />
+    <MarkAnimation />
+    <ObjectModelEncapsulateLegacy />
+    <ObjectModelExtractV2 />
+    <ObjectModelTableType />
+    <SchemaViewerObjectModel />
+    <SetMembershipControl />
+    <SheetIdentifierTracking />
+    <_.fcp.VConnDownstreamExtractsWithWarnings.true...VConnDownstreamExtractsWithWarnings />
+    <WindowsPersistSimpleIdentifiers />
+    <WorksheetBackgroundTransparency />
+  </document-format-change-manifest>
+  <repository-location id='HospitalityRevenueAnalysisDashboard' path='/workbooks' revision='1.0' />
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource caption='fact_bookings+' inline='true' name='federated.1dw7zvt169ov9910lky0d10tjyj2' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='fact_bookings' name='textscan.1r7meva1qn05hn18maryz0ikigv3'>
+            <connection class='textscan' directory='D:/Data Analytics Project/Hospitality Revenue Optimization Data analysis/Tables csv' filename='fact_bookings.csv' password='' server='' workgroup-auth-mode='as-is' />
+          </named-connection>
+        </named-connections>
+        <relation type='collection'>
+          <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='fact_bookings.csv' table='[fact_bookings#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='string' name='booking_id' ordinal='0' />
+              <column datatype='integer' name='property_id' ordinal='1' />
+              <column datatype='date' name='booking_date' ordinal='2' />
+              <column datatype='date' name='check_in_date' ordinal='3' />
+              <column datatype='date' name='checkout_date' ordinal='4' />
+              <column datatype='integer' name='no_guests' ordinal='5' />
+              <column datatype='string' name='room_category' ordinal='6' />
+              <column datatype='string' name='booking_platform' ordinal='7' />
+              <column datatype='integer' name='ratings_given' ordinal='8' />
+              <column datatype='string' name='booking_status' ordinal='9' />
+              <column datatype='integer' name='revenue_generated' ordinal='10' />
+              <column datatype='integer' name='revenue_realized' ordinal='11' />
+            </columns>
+          </relation>
+          <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='dim_date.csv' table='[dim_date#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='date' name='date' ordinal='0' />
+              <column datatype='string' name='mmm yy' ordinal='1' />
+              <column datatype='integer' name='week no' ordinal='2' />
+              <column datatype='string' name='day_type' ordinal='3' />
+            </columns>
+          </relation>
+          <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='fact_aggregated_bookings.csv' table='[fact_aggregated_bookings#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='integer' name='property_id' ordinal='0' />
+              <column datatype='date' name='check_in_date' ordinal='1' />
+              <column datatype='string' name='room_category' ordinal='2' />
+              <column datatype='integer' name='successful_bookings' ordinal='3' />
+              <column datatype='integer' name='capacity' ordinal='4' />
+            </columns>
+          </relation>
+          <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='dim_hotels.csv1' table='[dim_hotels#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='integer' name='property_id' ordinal='0' />
+              <column datatype='string' name='property_name' ordinal='1' />
+              <column datatype='string' name='category' ordinal='2' />
+              <column datatype='string' name='city' ordinal='3' />
+            </columns>
+          </relation>
+          <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='dim_rooms.csv1' table='[dim_rooms#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='string' name='room_id' ordinal='0' />
+              <column datatype='string' name='room_class' ordinal='1' />
+            </columns>
+          </relation>
+          <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='dim_hotels.csv' table='[dim_hotels#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='integer' name='property_id' ordinal='0' />
+              <column datatype='string' name='property_name' ordinal='1' />
+              <column datatype='string' name='category' ordinal='2' />
+              <column datatype='string' name='city' ordinal='3' />
+            </columns>
+          </relation>
+          <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='dim_rooms.csv' table='[dim_rooms#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='string' name='room_id' ordinal='0' />
+              <column datatype='string' name='room_class' ordinal='1' />
+            </columns>
+          </relation>
+        </relation>
+        <cols>
+          <map key='[booking_date]' value='[fact_bookings.csv].[booking_date]' />
+          <map key='[booking_id]' value='[fact_bookings.csv].[booking_id]' />
+          <map key='[booking_platform]' value='[fact_bookings.csv].[booking_platform]' />
+          <map key='[booking_status]' value='[fact_bookings.csv].[booking_status]' />
+          <map key='[capacity]' value='[fact_aggregated_bookings.csv].[capacity]' />
+          <map key='[category (dim_hotels.csv1)]' value='[dim_hotels.csv1].[category]' />
+          <map key='[category]' value='[dim_hotels.csv].[category]' />
+          <map key='[check_in_date (fact_aggregated_bookings.csv)]' value='[fact_aggregated_bookings.csv].[check_in_date]' />
+          <map key='[check_in_date]' value='[fact_bookings.csv].[check_in_date]' />
+          <map key='[checkout_date]' value='[fact_bookings.csv].[checkout_date]' />
+          <map key='[city (dim_hotels.csv1)]' value='[dim_hotels.csv1].[city]' />
+          <map key='[city]' value='[dim_hotels.csv].[city]' />
+          <map key='[date]' value='[dim_date.csv].[date]' />
+          <map key='[day_type]' value='[dim_date.csv].[day_type]' />
+          <map key='[mmm yy]' value='[dim_date.csv].[mmm yy]' />
+          <map key='[no_guests]' value='[fact_bookings.csv].[no_guests]' />
+          <map key='[property_id (dim_hotels.csv)]' value='[dim_hotels.csv].[property_id]' />
+          <map key='[property_id (dim_hotels.csv1)]' value='[dim_hotels.csv1].[property_id]' />
+          <map key='[property_id (fact_aggregated_bookings.csv)]' value='[fact_aggregated_bookings.csv].[property_id]' />
+          <map key='[property_id]' value='[fact_bookings.csv].[property_id]' />
+          <map key='[property_name (dim_hotels.csv1)]' value='[dim_hotels.csv1].[property_name]' />
+          <map key='[property_name]' value='[dim_hotels.csv].[property_name]' />
+          <map key='[ratings_given]' value='[fact_bookings.csv].[ratings_given]' />
+          <map key='[revenue_generated]' value='[fact_bookings.csv].[revenue_generated]' />
+          <map key='[revenue_realized]' value='[fact_bookings.csv].[revenue_realized]' />
+          <map key='[room_category (fact_aggregated_bookings.csv)]' value='[fact_aggregated_bookings.csv].[room_category]' />
+          <map key='[room_category]' value='[fact_bookings.csv].[room_category]' />
+          <map key='[room_class (dim_rooms.csv1)]' value='[dim_rooms.csv1].[room_class]' />
+          <map key='[room_class]' value='[dim_rooms.csv].[room_class]' />
+          <map key='[room_id (dim_rooms.csv1)]' value='[dim_rooms.csv1].[room_id]' />
+          <map key='[room_id]' value='[dim_rooms.csv].[room_id]' />
+          <map key='[successful_bookings]' value='[fact_aggregated_bookings.csv].[successful_bookings]' />
+          <map key='[week no]' value='[dim_date.csv].[week no]' />
+        </cols>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[fact_bookings.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[dim_date.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[fact_aggregated_bookings.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[dim_hotels.csv1]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[dim_rooms.csv1]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[dim_hotels.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[dim_rooms.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>booking_id</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[booking_id]</local-name>
+            <parent-name>[fact_bookings.csv]</parent-name>
+            <remote-alias>booking_id</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>property_id</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[property_id]</local-name>
+            <parent-name>[fact_bookings.csv]</parent-name>
+            <remote-alias>property_id</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>booking_date</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[booking_date]</local-name>
+            <parent-name>[fact_bookings.csv]</parent-name>
+            <remote-alias>booking_date</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>check_in_date</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[check_in_date]</local-name>
+            <parent-name>[fact_bookings.csv]</parent-name>
+            <remote-alias>check_in_date</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>checkout_date</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[checkout_date]</local-name>
+            <parent-name>[fact_bookings.csv]</parent-name>
+            <remote-alias>checkout_date</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>no_guests</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[no_guests]</local-name>
+            <parent-name>[fact_bookings.csv]</parent-name>
+            <remote-alias>no_guests</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>room_category</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[room_category]</local-name>
+            <parent-name>[fact_bookings.csv]</parent-name>
+            <remote-alias>room_category</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>booking_platform</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[booking_platform]</local-name>
+            <parent-name>[fact_bookings.csv]</parent-name>
+            <remote-alias>booking_platform</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ratings_given</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[ratings_given]</local-name>
+            <parent-name>[fact_bookings.csv]</parent-name>
+            <remote-alias>ratings_given</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>booking_status</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[booking_status]</local-name>
+            <parent-name>[fact_bookings.csv]</parent-name>
+            <remote-alias>booking_status</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>revenue_generated</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[revenue_generated]</local-name>
+            <parent-name>[fact_bookings.csv]</parent-name>
+            <remote-alias>revenue_generated</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>revenue_realized</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[revenue_realized]</local-name>
+            <parent-name>[fact_bookings.csv]</parent-name>
+            <remote-alias>revenue_realized</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>date</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[date]</local-name>
+            <parent-name>[dim_date.csv]</parent-name>
+            <remote-alias>date</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>mmm yy</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[mmm yy]</local-name>
+            <parent-name>[dim_date.csv]</parent-name>
+            <remote-alias>mmm yy</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>week no</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[week no]</local-name>
+            <parent-name>[dim_date.csv]</parent-name>
+            <remote-alias>week no</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>day_type</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[day_type]</local-name>
+            <parent-name>[dim_date.csv]</parent-name>
+            <remote-alias>day_type</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>property_id</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[property_id (fact_aggregated_bookings.csv)]</local-name>
+            <parent-name>[fact_aggregated_bookings.csv]</parent-name>
+            <remote-alias>property_id</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>check_in_date</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[check_in_date (fact_aggregated_bookings.csv)]</local-name>
+            <parent-name>[fact_aggregated_bookings.csv]</parent-name>
+            <remote-alias>check_in_date</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>room_category</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[room_category (fact_aggregated_bookings.csv)]</local-name>
+            <parent-name>[fact_aggregated_bookings.csv]</parent-name>
+            <remote-alias>room_category</remote-alias>
+            <ordinal>18</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>successful_bookings</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[successful_bookings]</local-name>
+            <parent-name>[fact_aggregated_bookings.csv]</parent-name>
+            <remote-alias>successful_bookings</remote-alias>
+            <ordinal>19</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>capacity</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[capacity]</local-name>
+            <parent-name>[fact_aggregated_bookings.csv]</parent-name>
+            <remote-alias>capacity</remote-alias>
+            <ordinal>20</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>property_id</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[property_id (dim_hotels.csv1)]</local-name>
+            <parent-name>[dim_hotels.csv1]</parent-name>
+            <remote-alias>property_id</remote-alias>
+            <ordinal>21</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>property_name</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[property_name (dim_hotels.csv1)]</local-name>
+            <parent-name>[dim_hotels.csv1]</parent-name>
+            <remote-alias>property_name</remote-alias>
+            <ordinal>22</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>category</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[category (dim_hotels.csv1)]</local-name>
+            <parent-name>[dim_hotels.csv1]</parent-name>
+            <remote-alias>category</remote-alias>
+            <ordinal>23</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>city</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[city (dim_hotels.csv1)]</local-name>
+            <parent-name>[dim_hotels.csv1]</parent-name>
+            <remote-alias>city</remote-alias>
+            <ordinal>24</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>room_id</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[room_id (dim_rooms.csv1)]</local-name>
+            <parent-name>[dim_rooms.csv1]</parent-name>
+            <remote-alias>room_id</remote-alias>
+            <ordinal>25</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>room_class</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[room_class (dim_rooms.csv1)]</local-name>
+            <parent-name>[dim_rooms.csv1]</parent-name>
+            <remote-alias>room_class</remote-alias>
+            <ordinal>26</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>property_id</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[property_id (dim_hotels.csv)]</local-name>
+            <parent-name>[dim_hotels.csv]</parent-name>
+            <remote-alias>property_id</remote-alias>
+            <ordinal>27</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>property_name</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[property_name]</local-name>
+            <parent-name>[dim_hotels.csv]</parent-name>
+            <remote-alias>property_name</remote-alias>
+            <ordinal>28</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>category</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[category]</local-name>
+            <parent-name>[dim_hotels.csv]</parent-name>
+            <remote-alias>category</remote-alias>
+            <ordinal>29</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>city</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[city]</local-name>
+            <parent-name>[dim_hotels.csv]</parent-name>
+            <remote-alias>city</remote-alias>
+            <ordinal>30</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>room_id</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[room_id]</local-name>
+            <parent-name>[dim_rooms.csv]</parent-name>
+            <remote-alias>room_id</remote-alias>
+            <ordinal>31</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>room_class</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[room_class]</local-name>
+            <parent-name>[dim_rooms.csv]</parent-name>
+            <remote-alias>room_class</remote-alias>
+            <ordinal>32</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Realization %' datatype='real' name='[Calculation_1041176003837947904]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='(SUM([revenue_realized]) / SUM([revenue_generated])) * 100' />
+      </column>
+      <column caption='Average revenue per booking' datatype='real' name='[Calculation_1041176003840659457]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='sum([revenue_realized])/ count([booking_id])' />
+      </column>
+      <column caption='Occupancy rate' datatype='real' name='[Calculation_1041176003861962755]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='sum([successful_bookings]) / sum([capacity]) * 100' />
+      </column>
+      <column caption='Cancellation rate' datatype='real' name='[Calculation_1041176003867119620]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='SUM(IF [booking_status] = &quot;Cancelled&quot; THEN 1 ELSE 0 END) / COUNT([booking_id]) * 100' />
+      </column>
+      <column aggregation='None' datatype='integer' name='[Ratings Given (bin)]' role='dimension' type='quantitative'>
+        <calculation class='bin' decimals='-1' formula='[ratings_given]' peg='0' size='0.998' />
+      </column>
+      <column caption='dim_date.csv' datatype='table' name='[__tableau_internal_object_id__].[dim_date.csv_77B330B463924D2184B05427D4FDDABA]' role='measure' type='quantitative' />
+      <column caption='dim_hotels.csv1' datatype='table' name='[__tableau_internal_object_id__].[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]' role='measure' type='quantitative' />
+      <column caption='dim_hotels.csv' datatype='table' name='[__tableau_internal_object_id__].[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]' role='measure' type='quantitative' />
+      <column caption='dim_rooms.csv' datatype='table' name='[__tableau_internal_object_id__].[dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35]' role='measure' type='quantitative' />
+      <column caption='dim_rooms.csv1' datatype='table' name='[__tableau_internal_object_id__].[dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF]' role='measure' type='quantitative' />
+      <column caption='fact_aggregated_bookings.csv' datatype='table' name='[__tableau_internal_object_id__].[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]' role='measure' type='quantitative' />
+      <column caption='fact_bookings.csv' datatype='table' name='[__tableau_internal_object_id__].[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]' role='measure' type='quantitative' />
+      <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
+      <column caption='Booking Id' datatype='string' name='[booking_id]' role='dimension' type='nominal' />
+      <column caption='Booking Platform' datatype='string' name='[booking_platform]' role='dimension' type='nominal' />
+      <column caption='Booking Status' datatype='string' name='[booking_status]' role='dimension' type='nominal' />
+      <column caption='Capacity' datatype='integer' name='[capacity]' role='measure' type='quantitative' />
+      <column caption='Category (Dim Hotels.Csv1)' datatype='string' name='[category (dim_hotels.csv1)]' role='dimension' type='nominal' />
+      <column caption='Category' datatype='string' name='[category]' role='dimension' type='nominal' />
+      <column caption='Check In Date (Fact Aggregated Bookings.Csv)' datatype='date' name='[check_in_date (fact_aggregated_bookings.csv)]' role='dimension' type='ordinal' />
+      <column caption='Check In Date' datatype='date' name='[check_in_date]' role='dimension' type='ordinal' />
+      <column caption='Checkout Date' datatype='date' name='[checkout_date]' role='dimension' type='ordinal' />
+      <column caption='City (Dim Hotels.Csv1)' datatype='string' name='[city (dim_hotels.csv1)]' role='dimension' semantic-role='[City].[Name]' type='nominal' />
+      <column caption='City' datatype='string' name='[city]' role='dimension' semantic-role='[City].[Name]' type='nominal' />
+      <column caption='Date' datatype='date' name='[date]' role='dimension' type='ordinal' />
+      <column caption='Day Type' datatype='string' name='[day_type]' role='dimension' type='nominal' />
+      <column caption='Mmm Yy' datatype='string' name='[mmm yy]' role='dimension' type='nominal' />
+      <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
+      <column caption='Property Id (Dim Hotels.Csv)' datatype='integer' name='[property_id (dim_hotels.csv)]' role='dimension' type='ordinal' />
+      <column caption='Property Id (Dim Hotels.Csv1)' datatype='integer' name='[property_id (dim_hotels.csv1)]' role='dimension' type='ordinal' />
+      <column caption='Property Id (Fact Aggregated Bookings.Csv)' datatype='integer' name='[property_id (fact_aggregated_bookings.csv)]' role='dimension' type='ordinal' />
+      <column caption='Property Id' datatype='integer' name='[property_id]' role='dimension' type='ordinal' />
+      <column caption='Property Name (Dim Hotels.Csv1)' datatype='string' name='[property_name (dim_hotels.csv1)]' role='dimension' type='nominal' />
+      <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+      <column caption='Ratings Given' datatype='integer' name='[ratings_given]' role='measure' type='quantitative' />
+      <column caption='Revenue Generated' datatype='integer' name='[revenue_generated]' role='measure' type='quantitative' />
+      <column caption='Revenue Realized' datatype='integer' name='[revenue_realized]' role='measure' type='quantitative' />
+      <column caption='Room Category (Fact Aggregated Bookings.Csv)' datatype='string' name='[room_category (fact_aggregated_bookings.csv)]' role='dimension' type='nominal' />
+      <column caption='Room Category' datatype='string' name='[room_category]' role='dimension' type='nominal' />
+      <column caption='Room Class (Dim Rooms.Csv1)' datatype='string' name='[room_class (dim_rooms.csv1)]' role='dimension' type='nominal' />
+      <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+      <column caption='Room Id (Dim Rooms.Csv1)' datatype='string' name='[room_id (dim_rooms.csv1)]' role='dimension' type='nominal' />
+      <column caption='Room Id' datatype='string' name='[room_id]' role='dimension' type='nominal' />
+      <column caption='Successful Bookings' datatype='integer' name='[successful_bookings]' role='measure' type='quantitative' />
+      <column caption='Week No' datatype='integer' name='[week no]' role='dimension' type='quantitative' />
+      <column-instance column='[category]' derivation='None' name='[none:category:nk]' pivot='key' type='nominal' />
+      <group caption='Action (Property Name)' hidden='true' name='[Action (Property Name)]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[property_name]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (Room Class)' hidden='true' name='[Action (Room Class)]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[room_class]' />
+        </groupfilter>
+      </group>
+      <extract _.fcp.VConnDownstreamExtractsWithWarnings.true...user-specific='false' count='-1' enabled='true' object-id='' units='records'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='C:/Users/PC/AppData/Local/Temp/TableauTemp/#TableauTemp_1frg80j0i44kas170iq940yx3etp.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='04/06/2025 05:07:56 AM' username='tableau_internal_user'>
+          <relation type='collection'>
+            <relation name='fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9' table='[Extract].[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]' type='table' />
+            <relation name='dim_date.csv_77B330B463924D2184B05427D4FDDABA' table='[Extract].[dim_date.csv_77B330B463924D2184B05427D4FDDABA]' type='table' />
+            <relation name='fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B' table='[Extract].[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]' type='table' />
+            <relation name='dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994' table='[Extract].[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]' type='table' />
+            <relation name='dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF' table='[Extract].[dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF]' type='table' />
+            <relation name='dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8' table='[Extract].[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]' type='table' />
+            <relation name='dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35' table='[Extract].[dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35]' type='table' />
+          </relation>
+          <cols>
+            <map key='[booking_date]' value='[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9].[booking_date]' />
+            <map key='[booking_id]' value='[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9].[booking_id]' />
+            <map key='[booking_platform]' value='[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9].[booking_platform]' />
+            <map key='[booking_status]' value='[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9].[booking_status]' />
+            <map key='[capacity]' value='[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B].[capacity]' />
+            <map key='[category (dim_hotels.csv1)]' value='[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994].[category]' />
+            <map key='[category]' value='[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8].[category]' />
+            <map key='[check_in_date (fact_aggregated_bookings.csv)]' value='[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B].[check_in_date]' />
+            <map key='[check_in_date]' value='[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9].[check_in_date]' />
+            <map key='[checkout_date]' value='[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9].[checkout_date]' />
+            <map key='[city (dim_hotels.csv1)]' value='[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994].[city]' />
+            <map key='[city]' value='[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8].[city]' />
+            <map key='[date]' value='[dim_date.csv_77B330B463924D2184B05427D4FDDABA].[date]' />
+            <map key='[day_type]' value='[dim_date.csv_77B330B463924D2184B05427D4FDDABA].[day_type]' />
+            <map key='[mmm yy]' value='[dim_date.csv_77B330B463924D2184B05427D4FDDABA].[mmm yy]' />
+            <map key='[no_guests]' value='[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9].[no_guests]' />
+            <map key='[property_id (dim_hotels.csv)]' value='[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8].[property_id]' />
+            <map key='[property_id (dim_hotels.csv1)]' value='[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994].[property_id]' />
+            <map key='[property_id (fact_aggregated_bookings.csv)]' value='[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B].[property_id]' />
+            <map key='[property_id]' value='[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9].[property_id]' />
+            <map key='[property_name (dim_hotels.csv1)]' value='[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994].[property_name]' />
+            <map key='[property_name]' value='[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8].[property_name]' />
+            <map key='[ratings_given]' value='[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9].[ratings_given]' />
+            <map key='[revenue_generated]' value='[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9].[revenue_generated]' />
+            <map key='[revenue_realized]' value='[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9].[revenue_realized]' />
+            <map key='[room_category (fact_aggregated_bookings.csv)]' value='[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B].[room_category]' />
+            <map key='[room_category]' value='[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9].[room_category]' />
+            <map key='[room_class (dim_rooms.csv1)]' value='[dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF].[room_class]' />
+            <map key='[room_class]' value='[dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35].[room_class]' />
+            <map key='[room_id (dim_rooms.csv1)]' value='[dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF].[room_id]' />
+            <map key='[room_id]' value='[dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35].[room_id]' />
+            <map key='[successful_bookings]' value='[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B].[successful_bookings]' />
+            <map key='[week no]' value='[dim_date.csv_77B330B463924D2184B05427D4FDDABA].[week no]' />
+          </cols>
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>booking_id</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[booking_id]</local-name>
+              <parent-name>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</parent-name>
+              <remote-alias>booking_id</remote-alias>
+              <ordinal>0</ordinal>
+              <family>fact_bookings.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>134590</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>property_id</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[property_id]</local-name>
+              <parent-name>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</parent-name>
+              <remote-alias>property_id</remote-alias>
+              <ordinal>1</ordinal>
+              <family>fact_bookings.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>25</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>booking_date</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[booking_date]</local-name>
+              <parent-name>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</parent-name>
+              <remote-alias>booking_date</remote-alias>
+              <ordinal>2</ordinal>
+              <family>fact_bookings.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>194</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>check_in_date</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[check_in_date]</local-name>
+              <parent-name>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</parent-name>
+              <remote-alias>check_in_date</remote-alias>
+              <ordinal>3</ordinal>
+              <family>fact_bookings.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>92</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>checkout_date</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[checkout_date]</local-name>
+              <parent-name>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</parent-name>
+              <remote-alias>checkout_date</remote-alias>
+              <ordinal>4</ordinal>
+              <family>fact_bookings.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>107</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>no_guests</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[no_guests]</local-name>
+              <parent-name>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</parent-name>
+              <remote-alias>no_guests</remote-alias>
+              <ordinal>5</ordinal>
+              <family>fact_bookings.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>6</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>room_category</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[room_category]</local-name>
+              <parent-name>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</parent-name>
+              <remote-alias>room_category</remote-alias>
+              <ordinal>6</ordinal>
+              <family>fact_bookings.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>booking_platform</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[booking_platform]</local-name>
+              <parent-name>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</parent-name>
+              <remote-alias>booking_platform</remote-alias>
+              <ordinal>7</ordinal>
+              <family>fact_bookings.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>7</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>ratings_given</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[ratings_given]</local-name>
+              <parent-name>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</parent-name>
+              <remote-alias>ratings_given</remote-alias>
+              <ordinal>8</ordinal>
+              <family>fact_bookings.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>6</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>booking_status</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[booking_status]</local-name>
+              <parent-name>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</parent-name>
+              <remote-alias>booking_status</remote-alias>
+              <ordinal>9</ordinal>
+              <family>fact_bookings.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>3</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>revenue_generated</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[revenue_generated]</local-name>
+              <parent-name>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</parent-name>
+              <remote-alias>revenue_generated</remote-alias>
+              <ordinal>10</ordinal>
+              <family>fact_bookings.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>111</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>revenue_realized</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[revenue_realized]</local-name>
+              <parent-name>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</parent-name>
+              <remote-alias>revenue_realized</remote-alias>
+              <ordinal>11</ordinal>
+              <family>fact_bookings.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>253</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>date</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[date]</local-name>
+              <parent-name>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</parent-name>
+              <remote-alias>date</remote-alias>
+              <ordinal>12</ordinal>
+              <family>dim_date.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>92</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>mmm yy</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[mmm yy]</local-name>
+              <parent-name>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</parent-name>
+              <remote-alias>mmm yy</remote-alias>
+              <ordinal>13</ordinal>
+              <family>dim_date.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>3</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>week no</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[week no]</local-name>
+              <parent-name>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</parent-name>
+              <remote-alias>week no</remote-alias>
+              <ordinal>14</ordinal>
+              <family>dim_date.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>14</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>day_type</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[day_type]</local-name>
+              <parent-name>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</parent-name>
+              <remote-alias>day_type</remote-alias>
+              <ordinal>15</ordinal>
+              <family>dim_date.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>property_id</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[property_id (fact_aggregated_bookings.csv)]</local-name>
+              <parent-name>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</parent-name>
+              <remote-alias>property_id</remote-alias>
+              <ordinal>16</ordinal>
+              <family>fact_aggregated_bookings.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>25</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>check_in_date</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[check_in_date (fact_aggregated_bookings.csv)]</local-name>
+              <parent-name>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</parent-name>
+              <remote-alias>check_in_date</remote-alias>
+              <ordinal>17</ordinal>
+              <family>fact_aggregated_bookings.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>92</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>room_category</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[room_category (fact_aggregated_bookings.csv)]</local-name>
+              <parent-name>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</parent-name>
+              <remote-alias>room_category</remote-alias>
+              <ordinal>18</ordinal>
+              <family>fact_aggregated_bookings.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>successful_bookings</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[successful_bookings]</local-name>
+              <parent-name>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</parent-name>
+              <remote-alias>successful_bookings</remote-alias>
+              <ordinal>19</ordinal>
+              <family>fact_aggregated_bookings.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>44</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>capacity</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[capacity]</local-name>
+              <parent-name>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</parent-name>
+              <remote-alias>capacity</remote-alias>
+              <ordinal>20</ordinal>
+              <family>fact_aggregated_bookings.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>38</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>property_id</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[property_id (dim_hotels.csv1)]</local-name>
+              <parent-name>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</parent-name>
+              <remote-alias>property_id</remote-alias>
+              <ordinal>21</ordinal>
+              <family>dim_hotels.csv1</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>25</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>property_name</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[property_name (dim_hotels.csv1)]</local-name>
+              <parent-name>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</parent-name>
+              <remote-alias>property_name</remote-alias>
+              <ordinal>22</ordinal>
+              <family>dim_hotels.csv1</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>7</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>category</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[category (dim_hotels.csv1)]</local-name>
+              <parent-name>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</parent-name>
+              <remote-alias>category</remote-alias>
+              <ordinal>23</ordinal>
+              <family>dim_hotels.csv1</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>city</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[city (dim_hotels.csv1)]</local-name>
+              <parent-name>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</parent-name>
+              <remote-alias>city</remote-alias>
+              <ordinal>24</ordinal>
+              <family>dim_hotels.csv1</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>room_id</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[room_id (dim_rooms.csv1)]</local-name>
+              <parent-name>[dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF]</parent-name>
+              <remote-alias>room_id</remote-alias>
+              <ordinal>25</ordinal>
+              <family>dim_rooms.csv1</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>room_class</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[room_class (dim_rooms.csv1)]</local-name>
+              <parent-name>[dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF]</parent-name>
+              <remote-alias>room_class</remote-alias>
+              <ordinal>26</ordinal>
+              <family>dim_rooms.csv1</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>property_id</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[property_id (dim_hotels.csv)]</local-name>
+              <parent-name>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</parent-name>
+              <remote-alias>property_id</remote-alias>
+              <ordinal>27</ordinal>
+              <family>dim_hotels.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>25</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>property_name</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[property_name]</local-name>
+              <parent-name>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</parent-name>
+              <remote-alias>property_name</remote-alias>
+              <ordinal>28</ordinal>
+              <family>dim_hotels.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>7</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>category</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[category]</local-name>
+              <parent-name>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</parent-name>
+              <remote-alias>category</remote-alias>
+              <ordinal>29</ordinal>
+              <family>dim_hotels.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>city</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[city]</local-name>
+              <parent-name>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</parent-name>
+              <remote-alias>city</remote-alias>
+              <ordinal>30</ordinal>
+              <family>dim_hotels.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>room_id</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[room_id]</local-name>
+              <parent-name>[dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35]</parent-name>
+              <remote-alias>room_id</remote-alias>
+              <ordinal>31</ordinal>
+              <family>dim_rooms.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>room_class</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[room_class]</local-name>
+              <parent-name>[dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35]</parent-name>
+              <remote-alias>room_class</remote-alias>
+              <ordinal>32</ordinal>
+              <family>dim_rooms.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>4</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35]</object-id>
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[none:category:nk]' type='palette'>
+            <map to='#4e79a7'>
+              <bucket>&quot;Business&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Luxury&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;India&quot;' />
+      </semantic-values>
+      <object-graph>
+        <objects>
+          <object caption='dim_date.csv' id='dim_date.csv_77B330B463924D2184B05427D4FDDABA'>
+            <properties context=''>
+              <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='dim_date.csv' table='[dim_date#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='date' name='date' ordinal='0' />
+                  <column datatype='string' name='mmm yy' ordinal='1' />
+                  <column datatype='integer' name='week no' ordinal='2' />
+                  <column datatype='string' name='day_type' ordinal='3' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='dim_date.csv_77B330B463924D2184B05427D4FDDABA' table='[Extract].[dim_date.csv_77B330B463924D2184B05427D4FDDABA]' type='table' />
+            </properties>
+          </object>
+          <object caption='dim_hotels.csv1' id='dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994'>
+            <properties context=''>
+              <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='dim_hotels.csv1' table='[dim_hotels#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='property_id' ordinal='0' />
+                  <column datatype='string' name='property_name' ordinal='1' />
+                  <column datatype='string' name='category' ordinal='2' />
+                  <column datatype='string' name='city' ordinal='3' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994' table='[Extract].[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]' type='table' />
+            </properties>
+          </object>
+          <object caption='dim_hotels.csv' id='dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8'>
+            <properties context=''>
+              <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='dim_hotels.csv' table='[dim_hotels#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='property_id' ordinal='0' />
+                  <column datatype='string' name='property_name' ordinal='1' />
+                  <column datatype='string' name='category' ordinal='2' />
+                  <column datatype='string' name='city' ordinal='3' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8' table='[Extract].[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]' type='table' />
+            </properties>
+          </object>
+          <object caption='dim_rooms.csv' id='dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35'>
+            <properties context=''>
+              <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='dim_rooms.csv' table='[dim_rooms#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='string' name='room_id' ordinal='0' />
+                  <column datatype='string' name='room_class' ordinal='1' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35' table='[Extract].[dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35]' type='table' />
+            </properties>
+          </object>
+          <object caption='dim_rooms.csv1' id='dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF'>
+            <properties context=''>
+              <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='dim_rooms.csv1' table='[dim_rooms#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='string' name='room_id' ordinal='0' />
+                  <column datatype='string' name='room_class' ordinal='1' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF' table='[Extract].[dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF]' type='table' />
+            </properties>
+          </object>
+          <object caption='fact_aggregated_bookings.csv' id='fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B'>
+            <properties context=''>
+              <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='fact_aggregated_bookings.csv' table='[fact_aggregated_bookings#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='property_id' ordinal='0' />
+                  <column datatype='date' name='check_in_date' ordinal='1' />
+                  <column datatype='string' name='room_category' ordinal='2' />
+                  <column datatype='integer' name='successful_bookings' ordinal='3' />
+                  <column datatype='integer' name='capacity' ordinal='4' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B' table='[Extract].[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]' type='table' />
+            </properties>
+          </object>
+          <object caption='fact_bookings.csv' id='fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9'>
+            <properties context=''>
+              <relation connection='textscan.1r7meva1qn05hn18maryz0ikigv3' name='fact_bookings.csv' table='[fact_bookings#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='string' name='booking_id' ordinal='0' />
+                  <column datatype='integer' name='property_id' ordinal='1' />
+                  <column datatype='date' name='booking_date' ordinal='2' />
+                  <column datatype='date' name='check_in_date' ordinal='3' />
+                  <column datatype='date' name='checkout_date' ordinal='4' />
+                  <column datatype='integer' name='no_guests' ordinal='5' />
+                  <column datatype='string' name='room_category' ordinal='6' />
+                  <column datatype='string' name='booking_platform' ordinal='7' />
+                  <column datatype='integer' name='ratings_given' ordinal='8' />
+                  <column datatype='string' name='booking_status' ordinal='9' />
+                  <column datatype='integer' name='revenue_generated' ordinal='10' />
+                  <column datatype='integer' name='revenue_realized' ordinal='11' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9' table='[Extract].[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]' type='table' />
+            </properties>
+          </object>
+        </objects>
+        <relationships>
+          <relationship>
+            <expression op='='>
+              <expression op='[check_in_date]' />
+              <expression op='[date]' />
+            </expression>
+            <first-end-point object-id='fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9' />
+            <second-end-point object-id='dim_date.csv_77B330B463924D2184B05427D4FDDABA' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[property_id (fact_aggregated_bookings.csv)]' />
+              <expression op='[property_id (dim_hotels.csv1)]' />
+            </expression>
+            <first-end-point object-id='fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B' />
+            <second-end-point object-id='dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[property_id]' />
+              <expression op='[property_id (dim_hotels.csv)]' />
+            </expression>
+            <first-end-point object-id='fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9' />
+            <second-end-point object-id='dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[room_category]' />
+              <expression op='[room_id]' />
+            </expression>
+            <first-end-point object-id='fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9' />
+            <second-end-point object-id='dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[room_category (fact_aggregated_bookings.csv)]' />
+              <expression op='[room_id (dim_rooms.csv1)]' />
+            </expression>
+            <first-end-point object-id='fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B' />
+            <second-end-point object-id='dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[date]' />
+              <expression op='[check_in_date (fact_aggregated_bookings.csv)]' />
+            </expression>
+            <first-end-point object-id='dim_date.csv_77B330B463924D2184B05427D4FDDABA' />
+            <second-end-point object-id='fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B' />
+          </relationship>
+        </relationships>
+      </object-graph>
+    </datasource>
+  </datasources>
+  <mapsources>
+    <mapsource name='Tableau' />
+  </mapsources>
+  <actions>
+    <action caption='Filter 10 (generated)' name='[Action10_992DAE434FA1496FB61A5393A9E4A347]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Booking staus count by month' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+      </command>
+    </action>
+    <action caption='Filter 1 (generated)' name='[Action1_78C1866283774866A0DE0D5B20A5D0AC]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Revenue by Property' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+      </command>
+    </action>
+    <action caption='Filter 2 (generated)' name='[Action2_F050335784F649BA8336017B0B4782DE]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Total bookings for room class' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+      </command>
+    </action>
+    <action caption='Filter 3 (generated)' name='[Action3_E542170DA65E4ECA912A451F76A57F29]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Average rating per hotel' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+      </command>
+    </action>
+    <action caption='Filter 4 (generated)' name='[Action4_C9BC44C142E74C0F80165C76919C9477]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Guests per month' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+      </command>
+    </action>
+    <action caption='Filter 5 (generated)' name='[Action5_DAE24113CD63481E9FA7B24B5C5908C9]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Bookings per month by Property category' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+      </command>
+    </action>
+    <action caption='Filter 6 (generated)' name='[Action6_94EF4C432E014B8C9BAE5B59DBA0FC90]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Bookings by Property Category' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+      </command>
+    </action>
+    <action caption='Filter 7 (generated)' name='[Action7_6032D7038DC0412E899BAA7D667F8ED3]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Revenue by city' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+      </command>
+    </action>
+    <action caption='Filter 8 (generated)' name='[Action8_06CAB19F0F85466EBA881B0AB10D855C]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Revenue per room category' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+      </command>
+    </action>
+    <action caption='Filter 9 (generated)' name='[Action9_4F2AFD4F2BC94B928D026C447529C789]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Booking platform preference by room type' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+      </command>
+    </action>
+  </actions>
+  <worksheets>
+    <worksheet name='Average rating per hotel'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize='9'>Average rating per hotel</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column-instance column='[ratings_given]' derivation='Avg' name='[avg:ratings_given:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[property_name]' derivation='None' name='[none:property_name:nk]' pivot='key' type='nominal' />
+            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Ratings Given' datatype='integer' name='[ratings_given]' role='measure' type='quantitative' />
+            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
+            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:property_name:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1dw7zvt169ov9910lky0d10tjyj2].[avg:ratings_given:qk]' shelf='rows' />
+          </shelf-sorts>
+          <slices>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='table'>
+            <format attr='background-color' value='#f9e9e0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:property_name:nk]</rows>
+        <cols>[federated.1dw7zvt169ov9910lky0d10tjyj2].[avg:ratings_given:qk]</cols>
+      </table>
+      <simple-id uuid='{4E2683CD-D0D0-4204-90C8-12B0D6DF45CE}' />
+    </worksheet>
+    <worksheet name='Average revenue per booking'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize='9'>Average revenue per booking</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column caption='Average revenue per booking' datatype='real' name='[Calculation_1041176003840659457]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='sum([revenue_realized])/ count([booking_id])' />
+            </column>
+            <column caption='Booking Id' datatype='string' name='[booking_id]' role='dimension' type='nominal' />
+            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Revenue Realized' datatype='integer' name='[revenue_realized]' role='measure' type='quantitative' />
+            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_1041176003840659457]' derivation='User' name='[usr:Calculation_1041176003840659457:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
+            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='font-size' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' value='20' />
+            <format attr='text-format' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' value='c&quot;₹ &quot;#,##0;&quot;₹ &quot;-#,##0' />
+            <format attr='font-weight' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' value='bold' />
+            <format attr='vertical-align' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' value='center' />
+            <format attr='text-align' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' value='center' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' palette='purple_10_0' type='interpolated' />
+          </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#f9e9e0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' />
+              <text column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{3831D150-6E4A-4AD5-ADA8-2EA2836E3743}' />
+    </worksheet>
+    <worksheet name='Booking platform preference by room type'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize='9'>Booking platform preference by room type</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column caption='Booking Id' datatype='string' name='[booking_id]' role='dimension' type='nominal' />
+            <column caption='Booking Platform' datatype='string' name='[booking_platform]' role='dimension' type='nominal' />
+            <column-instance column='[booking_id]' derivation='Count' name='[cnt:booking_id:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[booking_platform]' derivation='None' name='[none:booking_platform:nk]' pivot='key' type='nominal' />
+            <column-instance column='[room_class]' derivation='None' name='[none:room_class:nk]' pivot='key' type='nominal' />
+            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
+            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='cell-w' value='20' />
+            <format attr='cell-h' value='20' />
+            <format attr='cell' value='20' />
+            <format attr='cell-q' value='100' />
+          </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#f9e9e0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <size column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[cnt:booking_id:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='size' value='1.7999999523162842' />
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='false' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:room_class:nk]</rows>
+        <cols>[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:booking_platform:nk]</cols>
+      </table>
+      <simple-id uuid='{83140737-0F3E-436D-B276-9D7CEAC24B92}' />
+    </worksheet>
+    <worksheet name='Booking staus count by month'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize='9'>Booking status count by booking month</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
+            <column caption='Booking Id' datatype='string' name='[booking_id]' role='dimension' type='nominal' />
+            <column caption='Booking Status' datatype='string' name='[booking_status]' role='dimension' type='nominal' />
+            <column-instance column='[booking_id]' derivation='Count' name='[cnt:booking_id:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[booking_status]' derivation='None' name='[none:booking_status:nk]' pivot='key' type='nominal' />
+            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
+            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='table'>
+            <format attr='background-color' value='#f9e9e0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='on' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:booking_status:nk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-line-first' value='true' />
+                <format attr='mark-labels-line-last' value='true' />
+                <format attr='mark-labels-range-min' value='true' />
+                <format attr='mark-labels-range-max' value='true' />
+                <format attr='mark-labels-mode' value='all' />
+                <format attr='mark-labels-range-scope' value='pane' />
+                <format attr='mark-labels-range-field' value='' />
+                <format attr='mark-labels-show' value='false' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1dw7zvt169ov9910lky0d10tjyj2].[cnt:booking_id:qk]</rows>
+        <cols>[federated.1dw7zvt169ov9910lky0d10tjyj2].[mn:booking_date:ok]</cols>
+      </table>
+      <simple-id uuid='{EBBF9D24-8768-4941-889B-56B9D7419F00}' />
+    </worksheet>
+    <worksheet name='Bookings by Property Category'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize='9'>Bookings by Property Category</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column-instance column='[__tableau_internal_object_id__].[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]' derivation='Count' name='[__tableau_internal_object_id__].[cnt:fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9:qk]' pivot='key' type='quantitative' />
+            <column caption='fact_bookings.csv' datatype='table' name='[__tableau_internal_object_id__].[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]' role='measure' type='quantitative' />
+            <column-instance column='[__tableau_internal_object_id__].[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]' derivation='Count' name='[__tableau_internal_object_id__].[pcto:cnt:fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9:qk]' pivot='key' type='quantitative'>
+              <table-calc ordering-type='Rows' type='PctTotal' />
+            </column-instance>
+            <column caption='Category' datatype='string' name='[category]' role='dimension' type='nominal' />
+            <column-instance column='[category]' derivation='None' name='[none:category:nk]' pivot='key' type='nominal' />
+            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
+            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='table'>
+            <format attr='background-color' value='#f9e9e0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Pie' />
+            <encodings>
+              <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:category:nk]' />
+              <wedge-size column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[__tableau_internal_object_id__].[cnt:fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9:qk]' />
+              <size column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[__tableau_internal_object_id__].[cnt:fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9:qk]' />
+              <text column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[__tableau_internal_object_id__].[pcto:cnt:fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{81042D41-734F-4F60-A729-5AB907F96C0C}' />
+    </worksheet>
+    <worksheet name='Bookings per month by Property category'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize='9'>Bookings per month by property category</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
+            <column caption='Booking Id' datatype='string' name='[booking_id]' role='dimension' type='nominal' />
+            <column caption='Category' datatype='string' name='[category]' role='dimension' type='nominal' />
+            <column-instance column='[booking_id]' derivation='Count' name='[cnt:booking_id:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[category]' derivation='None' name='[none:category:nk]' pivot='key' type='nominal' />
+            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
+            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='table'>
+            <format attr='background-color' value='#f9e9e0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <encodings>
+              <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:category:nk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.1dw7zvt169ov9910lky0d10tjyj2].[cnt:booking_id:qk]</rows>
+        <cols>[federated.1dw7zvt169ov9910lky0d10tjyj2].[mn:booking_date:ok]</cols>
+      </table>
+      <simple-id uuid='{1EAA68A0-9B19-42EA-8F98-451AE4CBD61F}' />
+    </worksheet>
+    <worksheet name='Guests per month'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize='9'>Guests per month</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
+            <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:qk]' pivot='key' type='quantitative' />
+            <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
+            <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:qk]' pivot='key' type='quantitative' />
+            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Revenue Generated' datatype='integer' name='[revenue_generated]' role='measure' type='quantitative' />
+            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+            <column-instance column='[revenue_generated]' derivation='Sum' name='[sum:revenue_generated:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
+            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='table'>
+            <format attr='background-color' value='#f9e9e0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Area' />
+            <encodings>
+              <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:no_guests:qk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]</rows>
+        <cols>[federated.1dw7zvt169ov9910lky0d10tjyj2].[mn:booking_date:qk]</cols>
+      </table>
+      <simple-id uuid='{6332CB0E-E94C-4DEC-B4FA-8BF28A74EFD0}' />
+    </worksheet>
+    <worksheet name='Revenue by Property'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize='9'>Revenue by Property</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column caption='Realization %' datatype='real' name='[Calculation_1041176003837947904]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='(SUM([revenue_realized]) / SUM([revenue_generated])) * 100' />
+            </column>
+            <column-instance column='[property_name]' derivation='None' name='[none:property_name:nk]' pivot='key' type='nominal' />
+            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Revenue Generated' datatype='integer' name='[revenue_generated]' role='measure' type='quantitative' />
+            <column caption='Revenue Realized' datatype='integer' name='[revenue_realized]' role='measure' type='quantitative' />
+            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+            <column-instance column='[revenue_generated]' derivation='Sum' name='[sum:revenue_generated:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_1041176003837947904]' derivation='User' name='[usr:Calculation_1041176003837947904:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action3_E542170DA65E4ECA912A451F76A57F29]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
+            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:property_name:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' shelf='rows' />
+          </shelf-sorts>
+          <slices>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='display' class='0' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' scope='cols' value='true' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='display' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:property_name:nk]' value='true' />
+          </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#f9e9e0' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='color' value='#666666' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003837947904:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:property_name:nk]</rows>
+        <cols>[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]</cols>
+      </table>
+      <simple-id uuid='{9F9ECD2B-8224-461F-A480-DB04C70421CD}' />
+    </worksheet>
+    <worksheet name='Revenue by city'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize='9'>Revenue by city</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
+          </datasources>
+          <mapsources>
+            <mapsource name='Tableau' />
+          </mapsources>
+          <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column-instance column='[__tableau_internal_object_id__].[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]' derivation='Count' name='[__tableau_internal_object_id__].[cnt:fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9:qk]' pivot='key' type='quantitative' />
+            <column caption='fact_bookings.csv' datatype='table' name='[__tableau_internal_object_id__].[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]' role='measure' type='quantitative' />
+            <column caption='City (Dim Hotels.Csv1)' datatype='string' name='[city (dim_hotels.csv1)]' role='dimension' semantic-role='[City].[Name]' type='nominal' />
+            <column-instance column='[city (dim_hotels.csv1)]' derivation='None' name='[none:city (dim_hotels.csv1):nk]' pivot='key' type='nominal' />
+            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Revenue Realized' datatype='integer' name='[revenue_realized]' role='measure' type='quantitative' />
+            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+            <column-instance column='[revenue_realized]' derivation='Sum' name='[sum:revenue_realized:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
+            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Longitude (generated)]' field-type='quantitative' max='10842607.749657908' min='7589706.8624366615' projection='EPSG:3857' range-type='fixed' scope='cols' type='space' />
+            <encoding attr='space' class='0' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Latitude (generated)]' field-type='quantitative' max='4234855.5134540489' min='753632.79353467829' projection='EPSG:3857' range-type='fixed' scope='rows' type='space' />
+          </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#f9e9e0' />
+          </style-rule>
+          <style-rule element='map'>
+            <format attr='washout' value='0.0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Multipolygon' />
+            <encodings>
+              <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' />
+              <size column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[__tableau_internal_object_id__].[cnt:fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9:qk]' />
+              <lod column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:city (dim_hotels.csv1):nk]' />
+              <geometry column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Geometry (generated)]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='false' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Latitude (generated)]</rows>
+        <cols>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Longitude (generated)]</cols>
+      </table>
+      <simple-id uuid='{90D52186-916A-4CB5-AD5C-C0E7312CC3AA}' />
+    </worksheet>
+    <worksheet name='Revenue per room category'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize='9'>Revenue per room category</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column-instance column='[revenue_realized]' derivation='Avg' name='[avg:revenue_realized:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[room_class]' derivation='None' name='[none:room_class:nk]' pivot='key' type='nominal' />
+            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Revenue Realized' datatype='integer' name='[revenue_realized]' role='measure' type='quantitative' />
+            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+            <column-instance column='[revenue_realized]' derivation='Sum' name='[sum:revenue_realized:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
+            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='table'>
+            <format attr='background-color' value='#f9e9e0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[avg:revenue_realized:qk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:room_class:nk]</rows>
+        <cols>[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]</cols>
+      </table>
+      <simple-id uuid='{336B18B1-0D65-4B19-9609-CF309F2FE994}' />
+    </worksheet>
+    <worksheet name='Total bookings for room class'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize='9'>Bookings by Room class</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column caption='Booking Id' datatype='string' name='[booking_id]' role='dimension' type='nominal' />
+            <column-instance column='[booking_id]' derivation='Count' name='[cnt:booking_id:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[room_class]' derivation='None' name='[none:room_class:nk]' pivot='key' type='nominal' />
+            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='table'>
+            <format attr='background-color' value='#f9e9e0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='on' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <size column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[cnt:booking_id:qk]' />
+              <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[cnt:booking_id:qk]' />
+              <text column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:room_class:nk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-line-first' value='true' />
+                <format attr='mark-labels-line-last' value='true' />
+                <format attr='mark-labels-range-min' value='true' />
+                <format attr='mark-labels-range-max' value='true' />
+                <format attr='mark-labels-mode' value='all' />
+                <format attr='mark-labels-range-scope' value='pane' />
+                <format attr='mark-labels-range-field' value='' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{DD3DB37E-47DC-4A81-A731-B6AFBF33993E}' />
+    </worksheet>
+    <worksheet name='Total revenue generated'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize='9'>Total Revenue Generated</run>
+            <run>Æ&#10;</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Revenue Generated' datatype='integer' name='[revenue_generated]' role='measure' type='quantitative' />
+            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+            <column-instance column='[revenue_generated]' derivation='Sum' name='[sum:revenue_generated:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
+            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='font-size' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' value='20' />
+            <format attr='text-format' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' value='c&quot;₹&quot;#,##0;(&quot;₹&quot;#,##0)' />
+            <format attr='text-align' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' value='left' />
+            <format attr='vertical-align' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' value='top' />
+            <format attr='font-weight' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' value='bold' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' palette='purple_10_0' type='interpolated' />
+          </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#f9e9e0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' />
+              <text column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{324B63FF-0216-4629-955A-5FAE5FC44F93}' />
+    </worksheet>
+    <worksheet name='Total revenue realized'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontsize='9'>Total revenue realized</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Revenue Realized' datatype='integer' name='[revenue_realized]' role='measure' type='quantitative' />
+            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+            <column-instance column='[revenue_realized]' derivation='Sum' name='[sum:revenue_realized:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
+            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='font-size' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' value='20' />
+            <format attr='text-format' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' value='c&quot;₹&quot;#,##0;(&quot;₹&quot;#,##0)' />
+            <format attr='text-align' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' value='left' />
+            <format attr='vertical-align' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' value='top' />
+            <format attr='font-weight' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' value='bold' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' palette='purple_10_0' type='interpolated' />
+          </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#f9e9e0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' />
+              <text column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{E0D4B4C2-B230-44EC-9219-EAF9D02FBF64}' />
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard enable-sort-zone-taborder='true' name='Hospitality Revenue Optimization Dashboard'>
+      <style>
+        <style-rule element='table'>
+          <format attr='background-color' value='#f9f3ef' />
+        </style-rule>
+      </style>
+      <size sizing-mode='automatic' />
+      <zones>
+        <zone h='100000' id='2' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98358' id='28' param='horz' type-v2='layout-flow' w='44805' x='417' y='821'>
+            <zone h='98358' id='1' param='vert' type-v2='layout-flow' w='44805' x='417' y='821'>
+              <zone h='6256' id='3' type-v2='text' w='44805' x='417' y='821'>
+                <formatted-text>
+                  <run bold='true' fontcolor='#000000' fontsize='15'>Hospitality Revenue Optimization Dashboard</run>
+                  <run>Æ&#10;</run>
+                </formatted-text>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='10' />
+                  <format attr='padding' value='10' />
+                  <format attr='background-color' value='#f9e9e0' />
+                </zone-style>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='0' />
+                <format attr='padding' value='0' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone h='98358' id='39' param='vert' type-v2='layout-flow' w='54361' x='45222' y='821' />
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+        <zone h='16890' id='5' param='horz' type-v2='layout-flow' w='24198' x='385' y='8177'>
+          <zone h='16890' id='6' name='Total revenue generated' w='24198' x='385' y='8177'>
+            <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='10' />
+              <format attr='padding' value='10' />
+              <format attr='background-color' value='#f9e9e0' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='17694' id='7' param='horz' type-v2='layout-flow' w='22465' x='24326' y='8177'>
+          <zone h='17694' id='8' name='Total revenue realized' w='22465' x='24326' y='8177'>
+            <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='10' />
+              <format attr='padding' value='10' />
+              <format attr='background-color' value='#f9e9e0' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='25737' id='9' param='horz' type-v2='layout-flow' w='15148' x='46085' y='4155'>
+          <zone h='25737' id='10' name='Average revenue per booking' w='15148' x='46085' y='4155'>
+            <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='10' />
+              <format attr='padding' value='10' />
+              <format attr='background-color' value='#f9e9e0' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='39946' id='11' param='horz' type-v2='layout-flow' w='24262' x='706' y='24397'>
+          <zone h='39946' id='12' name='Revenue by Property' w='24262' x='706' y='24397'>
+            <layout-cache minwidth='240' type-h='fixed' type-w='scalable' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='10' />
+              <format attr='padding' value='10' />
+              <format attr='background-color' value='#f9e9e0' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='36059' id='13' param='horz' type-v2='layout-flow' w='21438' x='642' y='63405'>
+          <zone h='36059' id='14' name='Total bookings for room class' w='21438' x='642' y='63405'>
+            <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='10' />
+              <format attr='padding' value='10' />
+              <format attr='background-color' value='#f9e9e0' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='35389' id='15' param='horz' type-v2='layout-flow' w='20411' x='25610' y='26810'>
+          <zone h='35389' id='16' name='Guests per month' w='20411' x='25610' y='26810'>
+            <layout-cache minwidth='194' type-h='fixed' type-w='scalable' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='10' />
+              <format attr='padding' value='10' />
+              <format attr='background-color' value='#f9e9e0' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='36059' id='17' param='horz' type-v2='layout-flow' w='22529' x='22657' y='62735'>
+          <zone h='36059' id='18' name='Average rating per hotel' w='22529' x='22657' y='62735'>
+            <layout-cache minwidth='240' type-h='fixed' type-w='scalable' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='10' />
+              <format attr='padding' value='10' />
+              <format attr='background-color' value='#f9e9e0' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='26005' id='19' param='horz' type-v2='layout-flow' w='14249' x='60847' y='4021'>
+          <zone h='21901' id='20' name='Bookings by Property Category' w='12165' x='61889' y='6073'>
+            <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='10' />
+            <format attr='padding' value='10' />
+            <format attr='background-color' value='#f9e9e0' />
+          </zone-style>
+        </zone>
+        <zone h='35121' id='21' param='horz' type-v2='layout-flow' w='27599' x='46149' y='30295'>
+          <zone h='35121' id='22' name='Bookings per month by Property category' w='27599' x='46149' y='30295'>
+            <layout-cache cell-count-w='4' minheight='189' non-cell-size-w='78' type-h='scalable' type-w='cell' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='10' />
+              <format attr='padding' value='10' />
+              <format attr='background-color' value='#f9e9e0' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='33244' id='23' param='horz' type-v2='layout-flow' w='23813' x='75546' y='1340'>
+          <zone h='33244' id='24' name='Revenue by city' w='23813' x='75546' y='1340'>
+            <layout-cache minheight='241' minwidth='202' type-h='scalable' type-w='scalable' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='10' />
+              <format attr='padding' value='10' />
+              <format attr='background-color' value='#f9e9e0' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='33244' id='25' param='horz' type-v2='layout-flow' w='22786' x='44994' y='65952'>
+          <zone h='33244' id='26' name='Booking staus count by month' w='22786' x='44994' y='65952'>
+            <layout-cache cell-count-w='4' minheight='189' non-cell-size-w='78' type-h='scalable' type-w='cell' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='10' />
+              <format attr='padding' value='10' />
+              <format attr='background-color' value='#f9e9e0' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='32038' id='29' param='horz' type-v2='layout-flow' w='24840' x='74904' y='33110'>
+          <zone h='32038' id='30' name='Revenue per room category' w='24840' x='74904' y='33110'>
+            <layout-cache minwidth='220' type-h='fixed' type-w='scalable' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='10' />
+              <format attr='padding' value='10' />
+              <format attr='background-color' value='#f9e9e0' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='33244' id='31' param='horz' type-v2='layout-flow' w='30680' x='68485' y='65416'>
+          <zone h='33244' id='32' name='Booking platform preference by room type' w='30680' x='68485' y='65416'>
+            <layout-cache cell-count-w='7' non-cell-size-w='121' type-h='cell' type-w='cell' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='10' />
+              <format attr='padding' value='10' />
+              <format attr='background-color' value='#f9e9e0' />
+            </zone-style>
+          </zone>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='2850' minheight='2850' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='47' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='97856' id='46' param='vert' type-v2='layout-flow' w='98974' x='513' y='1072'>
+                <zone h='8177' id='3' type-v2='text' w='44722' x='513' y='1072'>
+                  <formatted-text>
+                    <run bold='true' fontcolor='#000000' fontsize='15'>Hospitality Revenue Optimization Dashboard</run>
+                    <run>Æ&#10;</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='226' h='33244' id='24' is-fixed='true' name='Revenue by city' w='23813' x='75546' y='1340'>
+                  <layout-cache minheight='241' minwidth='202' type-h='scalable' type-w='scalable' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='166' h='25737' id='10' is-fixed='true' name='Average revenue per booking' w='15148' x='46085' y='4155'>
+                  <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='157' h='20645' id='20' is-fixed='true' name='Bookings by Property Category' w='11681' x='62131' y='6701'>
+                  <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='96' h='16890' id='6' is-fixed='true' name='Total revenue generated' w='24198' x='385' y='8177'>
+                  <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='102' h='17694' id='8' is-fixed='true' name='Total revenue realized' w='22465' x='24326' y='8177'>
+                  <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='39946' id='12' is-fixed='true' name='Revenue by Property' w='24262' x='706' y='24397'>
+                  <layout-cache minwidth='240' type-h='fixed' type-w='scalable' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='244' h='35389' id='16' is-fixed='true' name='Guests per month' w='20411' x='25610' y='26810'>
+                  <layout-cache minwidth='194' type-h='fixed' type-w='scalable' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='241' h='35121' id='22' is-fixed='true' name='Bookings per month by Property category' w='27599' x='46149' y='30295'>
+                  <layout-cache cell-count-w='4' minheight='189' non-cell-size-w='78' type-h='scalable' type-w='cell' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='216' h='32038' id='30' is-fixed='true' name='Revenue per room category' w='24840' x='74904' y='33110'>
+                  <layout-cache minwidth='220' type-h='fixed' type-w='scalable' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='248' h='36059' id='18' is-fixed='true' name='Average rating per hotel' w='22529' x='22657' y='62735'>
+                  <layout-cache minwidth='240' type-h='fixed' type-w='scalable' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='249' h='36059' id='14' is-fixed='true' name='Total bookings for room class' w='21438' x='642' y='63405'>
+                  <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='226' h='33244' id='32' is-fixed='true' name='Booking platform preference by room type' w='30680' x='68485' y='65416'>
+                  <layout-cache cell-count-w='7' non-cell-size-w='121' type-h='cell' type-w='cell' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='226' h='33244' id='26' is-fixed='true' name='Booking staus count by month' w='22786' x='44994' y='65952'>
+                  <layout-cache cell-count-w='4' minheight='220' non-cell-size-w='78' type-h='scalable' type-w='cell' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{FB28B988-68FE-4BC4-AEF0-71090A10DBB5}' />
+    </dashboard>
+  </dashboards>
+  <windows pres-mode='true' source-height='44'>
+    <window class='dashboard' maximized='true' name='Hospitality Revenue Optimization Dashboard'>
+      <viewpoints>
+        <viewpoint name='Average rating per hotel'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Average revenue per booking'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Booking platform preference by room type'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Booking staus count by month'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Bookings by Property Category'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Bookings per month by Property category'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Guests per month'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Revenue by Property'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Revenue by city'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Revenue per room category'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Total bookings for room class'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Total revenue generated'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Total revenue realized'>
+          <zoom type='entire-view' />
+        </viewpoint>
+      </viewpoints>
+      <active id='14' />
+      <simple-id uuid='{0A64D524-DEE8-43CA-A432-494BD2375B0D}' />
+    </window>
+    <window class='worksheet' name='Total revenue generated'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
+      <simple-id uuid='{9763D180-D524-42CC-B53C-4C13C8DD0076}' />
+    </window>
+    <window class='worksheet' name='Total revenue realized'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
+      <simple-id uuid='{3AEC6324-9C49-4305-80D1-BF2241244463}' />
+    </window>
+    <window class='worksheet' name='Average revenue per booking'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
+      <simple-id uuid='{7B51CCDC-297A-489E-AED7-B3E8DDE10A34}' />
+    </window>
+    <window class='worksheet' name='Revenue by Property'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
+      <simple-id uuid='{2D2087A5-3AC8-4A0C-8FF4-13A9C536E8FB}' />
+    </window>
+    <window class='worksheet' name='Total bookings for room class'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
+      <simple-id uuid='{FD87454C-1FD4-4596-B3C0-A79B0862175C}' />
+    </window>
+    <window class='worksheet' name='Average rating per hotel'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
+      <simple-id uuid='{E12FDA63-F428-4AF4-B509-79365775F85E}' />
+    </window>
+    <window class='worksheet' name='Bookings per month by Property category'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
+      <simple-id uuid='{D2F762BF-C632-4D57-8C21-5657CB63F163}' />
+    </window>
+    <window class='worksheet' name='Guests per month'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{C1B3942B-0FB9-45BD-B3F0-63F2F93A151B}' />
+    </window>
+    <window class='worksheet' name='Booking staus count by month'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:booking_status:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
+      <simple-id uuid='{1C0F822A-635B-41CE-81E3-8765E63A7D36}' />
+    </window>
+    <window class='worksheet' name='Revenue per room category'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
+      <simple-id uuid='{228DC767-DA0B-4162-9A1F-EE7EFBE03F73}' />
+    </window>
+    <window class='worksheet' name='Booking platform preference by room type'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
+      <simple-id uuid='{B35CE942-CA9B-4A28-A667-F012054A1884}' />
+    </window>
+    <window class='worksheet' name='Revenue by city'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <default-map-tool-selection tool='8' />
+      </viewpoint>
+      <simple-id uuid='{A935CB5A-446D-409F-8C63-8CB4AE87CC40}' />
+    </window>
+    <window class='worksheet' name='Bookings by Property Category'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
+      <simple-id uuid='{6F7FF726-012C-457C-A4AB-1E70A48576C1}' />
+    </window>
+  </windows>
+</workbook>
