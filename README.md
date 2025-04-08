@@ -48,6 +48,12 @@ How many rooms are available on that day? <br>
 
 To import tables to the MySQL server, I first cleaned and prepared the data using Excel by performing data type conversions and handling null values, ensuring the dataset was ready for seamless integration into the SQL tables.
 
+<p>
+  <a href="https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/tree/main/Data%20Cleaning%20using%20Excel" target="_blank" style="text-decoration:none;">
+    <img src="https://img.shields.io/badge/View-Excel_Cleaning_Files-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white" alt="Download Excel Data Cleaning File">
+  </a>
+</p>
+
 ### 💾Database & tables creation
 
 After preparing and cleaning the data in Excel by handling null values and converting data types, I created the database and corresponding tables in MySQL. Then, I imported the cleaned data into these tables. The database schema is illustrated in the image below.<br>
@@ -179,7 +185,11 @@ group by dd.day_type
 order by cancelled_bookings desc;
 ```
 
-To view the complete SQL Script, [View SQL Script](https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Analysis.sql)
+<p>
+  <a href="https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Analysis.sql" target="_blank" style="text-decoration:none;">
+    <img src="https://img.shields.io/badge/View-MySQL_Script-lightblue?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL Script">
+  </a>
+</p>
 
 ### ✨🔍Exploratory Data Analysis (EDA)
 
@@ -207,13 +217,27 @@ Performed in-depth exploratory analysis to understand booking behaviors, revenue
 - <b>Successful bookings vs Capacity Over time</b>
   - Compare successful bookings with capacity using Room Class, Property Name, City, Category, Month with Year, Week No, and Day Type.
 
-To view the Python notebook, [Python notebook](https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Optimzation.ipynb)
+<p>
+  <a href="https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Optimzation.ipynb" target="_blank" style="text-decoration:none;">
+    <img src="https://img.shields.io/badge/View-Python_Notebook-orange?style=for-the-badge&logo=jupyter" alt="Python Notebook">
+  </a>
+</p>
 
 ### 📊Interactive dashboard
 
 Designed and developed an interactive Tableau dashboard to enable stakeholders to monitor hotel performance trends and metrics over time.
 
-[![Dashboard Overview](Hospitality_Revenue_Analysis_Dashboard.png)](https://public.tableau.com/app/profile/bhuvanendiran.s/viz/HospitalityRevenueOptimizationDashboard/HospitalityRevenueOptimizationDashboard)
+![Dashboard](HospitalityRevenueAnalysisDashboard.gif)<br>
+
+<p>
+  <a href="https://public.tableau.com/app/profile/bhuvanendiran.s/viz/HospitalityRevenueOptimizationDashboard/HospitalityRevenueOptimizationDashboard" target="_blank" style="text-decoration:none;">
+    <img src="https://img.shields.io/badge/View-Dashboard-blue?style=for-the-badge&logo=tableau" alt="View Dashboard">
+  </a>
+  
+  <a href="https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/tree/main/Tableau%20dashobard" target="_blank" style="text-decoration:none;">
+    <img src="https://img.shields.io/badge/Download-Dashboard-brightgreen?style=for-the-badge&logo=github" alt="Download Dashboard">
+  </a>
+</p>
 
 ### 📝Results/Findings
 
