@@ -50,7 +50,7 @@ To import tables to the MySQL server, I first cleaned and prepared the data usin
 
 <p>
   <a href="https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/tree/main/Data%20Cleaning%20using%20Excel" target="_blank" style="text-decoration:none;">
-    <img src="https://img.shields.io/badge/Download-Excel_Cleaning_Files-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white" alt="Download Excel Data Cleaning File">
+    <img src="https://img.shields.io/badge/View-Excel_Cleaning_Files-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white" alt="Download Excel Data Cleaning File">
   </a>
 </p>
 
