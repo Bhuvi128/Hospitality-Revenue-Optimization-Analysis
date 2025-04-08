@@ -38,6 +38,7 @@ How many rooms are available on that day? <br>
 - Sql - Creating database, tables, data retrieval, and data querying
 - Python - Exploratory Data analysis
 - Sqlalchemy - Loading SQL data into python
+- Pymysql - Integrate MySQL server to sqlalchemy to load SQL data into python
 - Pandas - Data manipulation
 - Matplotlib & Seaborn - Data visualization
 - Scipy - Statistical testing and analysis
