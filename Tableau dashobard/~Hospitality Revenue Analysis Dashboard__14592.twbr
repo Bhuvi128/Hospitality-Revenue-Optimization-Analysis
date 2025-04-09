@@ -8,6 +8,7 @@
     <AutoCreateAndUpdateDSDPhoneLayouts />
     <IntuitiveSorting />
     <IntuitiveSorting_SP2 />
+    <LayerControlWidget />
     <MapboxVectorStylesAndLayers />
     <MarkAnimation />
     <ObjectModelEncapsulateLegacy />
@@ -20,7 +21,7 @@
     <WindowsPersistSimpleIdentifiers />
     <WorksheetBackgroundTransparency />
   </document-format-change-manifest>
-  <repository-location id='HospitalityRevenueAnalysisDashboard' path='/workbooks' revision='1.0' />
+  <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard?rev=1.0' id='HospitalityRevenueAnalysisDashboard' path='/workbooks' revision='1.1' />
   <preferences>
     <preference name='ui.encoding.shelf.height' value='24' />
     <preference name='ui.shelf.height' value='26' />
@@ -30,7 +31,7 @@
       <connection class='federated'>
         <named-connections>
           <named-connection caption='fact_bookings' name='textscan.1r7meva1qn05hn18maryz0ikigv3'>
-            <connection class='textscan' directory='D:/Data Analytics Project/Hospitality Revenue Optimization Data analysis/Tables csv' filename='fact_bookings.csv' password='' server='' workgroup-auth-mode='as-is' />
+            <connection class='textscan' directory='D:/Data Analytics Project/Hospitality Revenue Optimization Data analysis/Tables csv' workgroup-auth-mode='as-is' />
           </named-connection>
         </named-connections>
         <relation type='collection'>
@@ -749,7 +750,21 @@
       <column caption='Room Id' datatype='string' name='[room_id]' role='dimension' type='nominal' />
       <column caption='Successful Bookings' datatype='integer' name='[successful_bookings]' role='measure' type='quantitative' />
       <column caption='Week No' datatype='integer' name='[week no]' role='dimension' type='quantitative' />
+      <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+      <column-instance column='[booking_status]' derivation='None' name='[none:booking_status:nk]' pivot='key' type='nominal' />
       <column-instance column='[category]' derivation='None' name='[none:category:nk]' pivot='key' type='nominal' />
+      <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:ok]' pivot='key' type='ordinal' />
+      <group caption='Action (Category)' hidden='true' name='[Action (Category)]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[category]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (MONTH(Booking Date),No Guests)' hidden='true' name='[Action (MONTH(Booking Date),No Guests)]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[mn:booking_date:ok]' />
+          <groupfilter function='level-members' level='[none:no_guests:ok]' />
+        </groupfilter>
+      </group>
       <group caption='Action (Property Name)' hidden='true' name='[Action (Property Name)]' name-style='unqualified' user:auto-column='sheet_link'>
         <groupfilter function='crossjoin'>
           <groupfilter function='level-members' level='[property_name]' />
@@ -761,7 +776,7 @@
         </groupfilter>
       </group>
       <extract _.fcp.VConnDownstreamExtractsWithWarnings.true...user-specific='false' count='-1' enabled='true' object-id='' units='records'>
-        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='C:/Users/PC/AppData/Local/Temp/TableauTemp/#TableauTemp_1frg80j0i44kas170iq940yx3etp.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='04/06/2025 05:07:56 AM' username='tableau_internal_user'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='Data/TableauTemp/#TableauTemp_1frg80j0i44kas170iq940yx3etp.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='' username=''>
           <relation type='collection'>
             <relation name='fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9' table='[Extract].[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]' type='table' />
             <relation name='dim_date.csv_77B330B463924D2184B05427D4FDDABA' table='[Extract].[dim_date.csv_77B330B463924D2184B05427D4FDDABA]' type='table' />
@@ -820,7 +835,6 @@
               <approx-count>134590</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>property_id</remote-name>
@@ -834,7 +848,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>25</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>booking_date</remote-name>
@@ -848,7 +861,6 @@
               <aggregation>Year</aggregation>
               <approx-count>194</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>check_in_date</remote-name>
@@ -862,7 +874,6 @@
               <aggregation>Year</aggregation>
               <approx-count>92</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>checkout_date</remote-name>
@@ -876,7 +887,6 @@
               <aggregation>Year</aggregation>
               <approx-count>107</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>no_guests</remote-name>
@@ -890,7 +900,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>6</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>room_category</remote-name>
@@ -905,7 +914,6 @@
               <approx-count>4</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>booking_platform</remote-name>
@@ -920,7 +928,6 @@
               <approx-count>7</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>ratings_given</remote-name>
@@ -934,7 +941,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>6</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>booking_status</remote-name>
@@ -949,7 +955,6 @@
               <approx-count>3</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>revenue_generated</remote-name>
@@ -963,7 +968,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>111</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>revenue_realized</remote-name>
@@ -977,7 +981,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>253</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>date</remote-name>
@@ -991,7 +994,6 @@
               <aggregation>Year</aggregation>
               <approx-count>92</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>mmm yy</remote-name>
@@ -1006,7 +1008,6 @@
               <approx-count>3</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>week no</remote-name>
@@ -1020,7 +1021,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>14</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>day_type</remote-name>
@@ -1035,7 +1035,6 @@
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[dim_date.csv_77B330B463924D2184B05427D4FDDABA]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>property_id</remote-name>
@@ -1049,7 +1048,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>25</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>check_in_date</remote-name>
@@ -1063,7 +1061,6 @@
               <aggregation>Year</aggregation>
               <approx-count>92</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>room_category</remote-name>
@@ -1078,7 +1075,6 @@
               <approx-count>4</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>successful_bookings</remote-name>
@@ -1092,7 +1088,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>44</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>capacity</remote-name>
@@ -1106,7 +1101,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>38</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[fact_aggregated_bookings.csv_B281A9F80CD84BD7A2156EF7A844615B]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>property_id</remote-name>
@@ -1120,7 +1114,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>25</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>property_name</remote-name>
@@ -1135,7 +1128,6 @@
               <approx-count>7</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>category</remote-name>
@@ -1150,7 +1142,6 @@
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>city</remote-name>
@@ -1165,7 +1156,6 @@
               <approx-count>4</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[dim_hotels.csv_1AC26B2A44384BD4BC7AF4CE2767C994]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>room_id</remote-name>
@@ -1180,7 +1170,6 @@
               <approx-count>4</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>room_class</remote-name>
@@ -1195,7 +1184,6 @@
               <approx-count>4</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[dim_rooms.csv_BB619E995FBC4F9DA0BF17AB420C80AF]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>property_id</remote-name>
@@ -1209,7 +1197,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>25</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>property_name</remote-name>
@@ -1224,7 +1211,6 @@
               <approx-count>7</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>category</remote-name>
@@ -1239,7 +1225,6 @@
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>city</remote-name>
@@ -1254,7 +1239,6 @@
               <approx-count>4</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[dim_hotels.csv_CA1C98A1C2DD4A82AD4B644BC3C689F8]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>room_id</remote-name>
@@ -1269,7 +1253,6 @@
               <approx-count>4</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>room_class</remote-name>
@@ -1284,7 +1267,6 @@
               <approx-count>4</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[dim_rooms.csv_6DDCDEE9C7384833B58286FCFCCF5A35]</object-id>
             </metadata-record>
           </metadata-records>
         </connection>
@@ -1292,12 +1274,23 @@
       <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
       <style>
         <style-rule element='mark'>
-          <encoding attr='color' field='[none:category:nk]' type='palette'>
-            <map to='#4e79a7'>
-              <bucket>&quot;Business&quot;</bucket>
+          <encoding attr='color' field='[none:booking_status:nk]' type='palette'>
+            <map to='#b07aa1'>
+              <bucket>&quot;Checked Out&quot;</bucket>
             </map>
-            <map to='#f28e2b'>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Cancelled&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;No Show&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[none:category:nk]' type='palette'>
+            <map to='#b07aa1'>
               <bucket>&quot;Luxury&quot;</bucket>
+            </map>
+            <map to='#ff9da7'>
+              <bucket>&quot;Business&quot;</bucket>
             </map>
           </encoding>
         </style-rule>
@@ -1475,84 +1468,84 @@
     <mapsource name='Tableau' />
   </mapsources>
   <actions>
-    <action caption='Filter 10 (generated)' name='[Action10_992DAE434FA1496FB61A5393A9E4A347]'>
+    <action caption='Filter 10 (generated)' name='[Action10_B00E87D2A57D4E7D88919B9FDB3AE64E]'>
       <activation auto-clear='true' type='on-select' />
-      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Booking staus count by month' />
+      <source dashboard='Hospitality Dashboard' type='sheet' worksheet='Booking staus count by month' />
       <command command='tsc:tsl-filter'>
         <param name='special-fields' value='all' />
-        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+        <param name='target' value='Hospitality Dashboard' />
       </command>
     </action>
-    <action caption='Filter 1 (generated)' name='[Action1_78C1866283774866A0DE0D5B20A5D0AC]'>
+    <action caption='Filter 1 (generated)' name='[Action1_5020A466ADA44DE7A82543CB7721E286]'>
       <activation auto-clear='true' type='on-select' />
-      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Revenue by Property' />
+      <source dashboard='Hospitality Dashboard' type='sheet' worksheet='Revenue by Property' />
       <command command='tsc:tsl-filter'>
         <param name='special-fields' value='all' />
-        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+        <param name='target' value='Hospitality Dashboard' />
       </command>
     </action>
-    <action caption='Filter 2 (generated)' name='[Action2_F050335784F649BA8336017B0B4782DE]'>
+    <action caption='Filter 2 (generated)' name='[Action2_3A7C1B21B0624E22A4F6FB05B6166C6B]'>
       <activation auto-clear='true' type='on-select' />
-      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Total bookings for room class' />
+      <source dashboard='Hospitality Dashboard' type='sheet' worksheet='Guests per month' />
       <command command='tsc:tsl-filter'>
         <param name='special-fields' value='all' />
-        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+        <param name='target' value='Hospitality Dashboard' />
       </command>
     </action>
-    <action caption='Filter 3 (generated)' name='[Action3_E542170DA65E4ECA912A451F76A57F29]'>
+    <action caption='Filter 3 (generated)' name='[Action3_81AB4C7E4B2042F0B47EF59B9A5D34C4]'>
       <activation auto-clear='true' type='on-select' />
-      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Average rating per hotel' />
+      <source dashboard='Hospitality Dashboard' type='sheet' worksheet='Bookings per month by Property category' />
       <command command='tsc:tsl-filter'>
         <param name='special-fields' value='all' />
-        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+        <param name='target' value='Hospitality Dashboard' />
       </command>
     </action>
-    <action caption='Filter 4 (generated)' name='[Action4_C9BC44C142E74C0F80165C76919C9477]'>
+    <action caption='Filter 4 (generated)' name='[Action4_0F42BA5D1A0540A98CB87C85527F9B93]'>
       <activation auto-clear='true' type='on-select' />
-      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Guests per month' />
+      <source dashboard='Hospitality Dashboard' type='sheet' worksheet='Revenue by city' />
       <command command='tsc:tsl-filter'>
         <param name='special-fields' value='all' />
-        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+        <param name='target' value='Hospitality Dashboard' />
       </command>
     </action>
-    <action caption='Filter 5 (generated)' name='[Action5_DAE24113CD63481E9FA7B24B5C5908C9]'>
+    <action caption='Filter 5 (generated)' name='[Action5_3371AE4BCBB84BFD950EBC922949748B]'>
       <activation auto-clear='true' type='on-select' />
-      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Bookings per month by Property category' />
+      <source dashboard='Hospitality Dashboard' type='sheet' worksheet='Revenue per room category' />
       <command command='tsc:tsl-filter'>
         <param name='special-fields' value='all' />
-        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+        <param name='target' value='Hospitality Dashboard' />
       </command>
     </action>
-    <action caption='Filter 6 (generated)' name='[Action6_94EF4C432E014B8C9BAE5B59DBA0FC90]'>
+    <action caption='Filter 6 (generated)' name='[Action6_89A8F3F488A2402E89E021C143F0FFCA]'>
       <activation auto-clear='true' type='on-select' />
-      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Bookings by Property Category' />
+      <source dashboard='Hospitality Dashboard' type='sheet' worksheet='Bookings by Property Category' />
       <command command='tsc:tsl-filter'>
         <param name='special-fields' value='all' />
-        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+        <param name='target' value='Hospitality Dashboard' />
       </command>
     </action>
-    <action caption='Filter 7 (generated)' name='[Action7_6032D7038DC0412E899BAA7D667F8ED3]'>
+    <action caption='Filter 7 (generated)' name='[Action7_E73620C2610E419EB886BEA789F5E93C]'>
       <activation auto-clear='true' type='on-select' />
-      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Revenue by city' />
+      <source dashboard='Hospitality Dashboard' type='sheet' worksheet='Booking platform preference by room type' />
       <command command='tsc:tsl-filter'>
         <param name='special-fields' value='all' />
-        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+        <param name='target' value='Hospitality Dashboard' />
       </command>
     </action>
-    <action caption='Filter 8 (generated)' name='[Action8_06CAB19F0F85466EBA881B0AB10D855C]'>
+    <action caption='Filter 8 (generated)' name='[Action8_10880CF804C5423E8C017DE7E7155E93]'>
       <activation auto-clear='true' type='on-select' />
-      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Revenue per room category' />
+      <source dashboard='Hospitality Dashboard' type='sheet' worksheet='Total bookings for room class' />
       <command command='tsc:tsl-filter'>
         <param name='special-fields' value='all' />
-        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+        <param name='target' value='Hospitality Dashboard' />
       </command>
     </action>
-    <action caption='Filter 9 (generated)' name='[Action9_4F2AFD4F2BC94B928D026C447529C789]'>
+    <action caption='Filter 9 (generated)' name='[Action9_A60BC5E9E0EB4ED3831723D14C053DD8]'>
       <activation auto-clear='true' type='on-select' />
-      <source dashboard='Hospitality Revenue Optimization Dashboard' type='sheet' worksheet='Booking platform preference by room type' />
+      <source dashboard='Hospitality Dashboard' type='sheet' worksheet='Average rating per hotel' />
       <command command='tsc:tsl-filter'>
         <param name='special-fields' value='all' />
-        <param name='target' value='Hospitality Revenue Optimization Dashboard' />
+        <param name='target' value='Hospitality Dashboard' />
       </command>
     </action>
   </actions>
@@ -1561,10 +1554,11 @@
       <layout-options>
         <title>
           <formatted-text>
-            <run fontsize='9'>Average rating per hotel</run>
+            <run fontcolor='#f28e2b' fontsize='9'>Average rating per hotel</run>
           </formatted-text>
         </title>
       </layout-options>
+      <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard/Averageratingperhotel?rev=' id='114823838' path='/workbooks/HospitalityRevenueAnalysisDashboard' revision='' />
       <table>
         <view>
           <datasources>
@@ -1572,16 +1566,30 @@
           </datasources>
           <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
             <column-instance column='[ratings_given]' derivation='Avg' name='[avg:ratings_given:qk]' pivot='key' type='quantitative' />
+            <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
+            <column caption='Category' datatype='string' name='[category]' role='dimension' type='nominal' />
+            <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
+            <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:ok]' pivot='key' type='ordinal' />
             <column-instance column='[property_name]' derivation='None' name='[none:property_name:nk]' pivot='key' type='nominal' />
             <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
             <column caption='Ratings Given' datatype='integer' name='[ratings_given]' role='measure' type='quantitative' />
             <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]'>
+            <groupfilter function='level-members' level='[category]' user:ui-action-filter='[Action6_94EF4C432E014B8C9BAE5B59DBA0FC90]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action2_3A7C1B21B0624E22A4F6FB05B6166C6B]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[mn:booking_date:ok]' />
+              <groupfilter function='level-members' level='[none:no_guests:ok]' />
+            </groupfilter>
+          </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
             <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
-            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[room_class]' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:property_name:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1dw7zvt169ov9910lky0d10tjyj2].[avg:ratings_given:qk]' shelf='rows' />
@@ -1589,12 +1597,34 @@
           <slices>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]</column>
           </slices>
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[avg:ratings_given:qk]' scope='cols' value='' />
+            <format attr='tick-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='cell'>
+            <format attr='color' value='#e6e6e6' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='color' value='#d4d4d4' />
+          </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#f9e9e0' />
+            <format attr='background-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+          </style-rule>
+          <style-rule element='gridline'>
+            <format attr='stroke-size' value='0' />
+          </style-rule>
+          <style-rule element='zeroline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
           </style-rule>
         </style>
         <panes>
@@ -1603,6 +1633,11 @@
               <breakdown value='auto' />
             </view>
             <mark class='Automatic' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-color' value='#b07aa1' />
+              </style-rule>
+            </style>
           </pane>
         </panes>
         <rows>[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:property_name:nk]</rows>
@@ -1618,6 +1653,7 @@
           </formatted-text>
         </title>
       </layout-options>
+      <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard/Averagerevenueperbooking?rev=' id='114823835' path='/workbooks/HospitalityRevenueAnalysisDashboard' revision='' />
       <table>
         <view>
           <datasources>
@@ -1627,21 +1663,32 @@
             <column caption='Average revenue per booking' datatype='real' name='[Calculation_1041176003840659457]' role='measure' type='quantitative'>
               <calculation class='tableau' formula='sum([revenue_realized])/ count([booking_id])' />
             </column>
+            <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
             <column caption='Booking Id' datatype='string' name='[booking_id]' role='dimension' type='nominal' />
+            <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
+            <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:ok]' pivot='key' type='ordinal' />
             <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
             <column caption='Revenue Realized' datatype='integer' name='[revenue_realized]' role='measure' type='quantitative' />
             <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
             <column-instance column='[Calculation_1041176003840659457]' derivation='User' name='[usr:Calculation_1041176003840659457:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action2_3A7C1B21B0624E22A4F6FB05B6166C6B]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[mn:booking_date:ok]' />
+              <groupfilter function='level-members' level='[none:no_guests:ok]' />
+            </groupfilter>
+          </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
-            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_5020A466ADA44DE7A82543CB7721E286]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
-            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[room_class]' user:ui-action-filter='[Action5_3371AE4BCBB84BFD950EBC922949748B]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -1650,14 +1697,14 @@
             <format attr='font-size' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' value='20' />
             <format attr='text-format' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' value='c&quot;₹ &quot;#,##0;&quot;₹ &quot;-#,##0' />
             <format attr='font-weight' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' value='bold' />
-            <format attr='vertical-align' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' value='center' />
-            <format attr='text-align' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' value='center' />
+            <format attr='vertical-align' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' value='top' />
+            <format attr='text-align' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' value='left' />
           </style-rule>
           <style-rule element='mark'>
             <encoding attr='color' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' palette='purple_10_0' type='interpolated' />
           </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#f9e9e0' />
+            <format attr='background-color' value='#00000000' />
           </style-rule>
         </style>
         <panes>
@@ -1667,10 +1714,20 @@
             </view>
             <mark class='Automatic' />
             <encodings>
-              <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' />
               <text column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]' />
             </encodings>
+            <customized-label>
+              <formatted-text>
+                <run fontcolor='#f28e2b' fontsize='8'>Average revenue per booking</run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#f28e2b' fontsize='16'><![CDATA[<[federated.1dw7zvt169ov9910lky0d10tjyj2].[usr:Calculation_1041176003840659457:qk]>]]></run>
+              </formatted-text>
+            </customized-label>
             <style>
+              <style-rule element='cell'>
+                <format attr='text-align' value='center' />
+                <format attr='vertical-align' value='center' />
+              </style-rule>
               <style-rule element='mark'>
                 <format attr='mark-labels-show' value='true' />
                 <format attr='mark-labels-cull' value='true' />
@@ -1687,45 +1744,85 @@
       <layout-options>
         <title>
           <formatted-text>
-            <run fontsize='9'>Booking platform preference by room type</run>
+            <run fontcolor='#f28e2b' fontsize='9'>Booking platform preference by room type</run>
           </formatted-text>
         </title>
       </layout-options>
+      <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard/Bookingplatformpreferencebyroomtype?rev=' id='114823843' path='/workbooks/HospitalityRevenueAnalysisDashboard' revision='' />
       <table>
         <view>
           <datasources>
             <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
           </datasources>
           <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
             <column caption='Booking Id' datatype='string' name='[booking_id]' role='dimension' type='nominal' />
             <column caption='Booking Platform' datatype='string' name='[booking_platform]' role='dimension' type='nominal' />
+            <column caption='Category' datatype='string' name='[category]' role='dimension' type='nominal' />
             <column-instance column='[booking_id]' derivation='Count' name='[cnt:booking_id:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
             <column-instance column='[booking_platform]' derivation='None' name='[none:booking_platform:nk]' pivot='key' type='nominal' />
+            <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:ok]' pivot='key' type='ordinal' />
             <column-instance column='[room_class]' derivation='None' name='[none:room_class:nk]' pivot='key' type='nominal' />
             <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
             <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]'>
+            <groupfilter function='level-members' level='[category]' user:ui-action-filter='[Action6_94EF4C432E014B8C9BAE5B59DBA0FC90]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action2_3A7C1B21B0624E22A4F6FB05B6166C6B]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[mn:booking_date:ok]' />
+              <groupfilter function='level-members' level='[none:no_guests:ok]' />
+            </groupfilter>
+          </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
             <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
-            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[room_class]' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]</column>
           </slices>
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='tick-color' value='#00000000' />
+          </style-rule>
           <style-rule element='cell'>
             <format attr='cell-w' value='20' />
             <format attr='cell-h' value='20' />
             <format attr='cell' value='20' />
             <format attr='cell-q' value='100' />
+            <format attr='color' value='#d4d4d4' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='color' value='#d4d4d4' />
           </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#f9e9e0' />
+            <format attr='background-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='gridline'>
+            <format attr='stroke-size' value='0' />
+          </style-rule>
+          <style-rule element='zeroline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
+          </style-rule>
+          <style-rule element='table-div'>
+            <format attr='stroke-size' scope='rows' value='0' />
+            <format attr='line-visibility' scope='rows' value='off' />
+            <format attr='stroke-size' scope='cols' value='0' />
           </style-rule>
         </style>
         <panes>
@@ -1742,6 +1839,7 @@
                 <format attr='size' value='1.7999999523162842' />
                 <format attr='mark-labels-cull' value='true' />
                 <format attr='mark-labels-show' value='false' />
+                <format attr='mark-color' value='#b07aa1' />
               </style-rule>
             </style>
           </pane>
@@ -1755,10 +1853,11 @@
       <layout-options>
         <title>
           <formatted-text>
-            <run fontsize='9'>Booking status count by booking month</run>
+            <run fontcolor='#f28e2b' fontsize='9'>Booking status count by booking month</run>
           </formatted-text>
         </title>
       </layout-options>
+      <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard/Bookingstauscountbymonth?rev=' id='114823841' path='/workbooks/HospitalityRevenueAnalysisDashboard' revision='' />
       <table>
         <view>
           <datasources>
@@ -1768,27 +1867,60 @@
             <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
             <column caption='Booking Id' datatype='string' name='[booking_id]' role='dimension' type='nominal' />
             <column caption='Booking Status' datatype='string' name='[booking_status]' role='dimension' type='nominal' />
+            <column caption='Category' datatype='string' name='[category]' role='dimension' type='nominal' />
             <column-instance column='[booking_id]' derivation='Count' name='[cnt:booking_id:qk]' pivot='key' type='quantitative' />
             <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
             <column-instance column='[booking_status]' derivation='None' name='[none:booking_status:nk]' pivot='key' type='nominal' />
+            <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:ok]' pivot='key' type='ordinal' />
             <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
             <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]'>
+            <groupfilter function='level-members' level='[category]' user:ui-action-filter='[Action6_94EF4C432E014B8C9BAE5B59DBA0FC90]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action2_3A7C1B21B0624E22A4F6FB05B6166C6B]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[mn:booking_date:ok]' />
+              <groupfilter function='level-members' level='[none:no_guests:ok]' />
+            </groupfilter>
+          </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
             <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
-            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[room_class]' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]</column>
           </slices>
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='tick-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='cell'>
+            <format attr='color' value='#d4d4d4' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='color' value='#d4d4d4' />
+          </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#f9e9e0' />
+            <format attr='background-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='gridline'>
+            <format attr='stroke-size' value='0' />
+          </style-rule>
+          <style-rule element='zeroline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
           </style-rule>
         </style>
         <panes>
@@ -1824,10 +1956,11 @@
       <layout-options>
         <title>
           <formatted-text>
-            <run fontsize='9'>Bookings by Property Category</run>
+            <run fontcolor='#f28e2b' fontsize='9'>Bookings by Property Category</run>
           </formatted-text>
         </title>
       </layout-options>
+      <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard/BookingsbyPropertyCategory?rev=' id='114823845' path='/workbooks/HospitalityRevenueAnalysisDashboard' revision='' />
       <table>
         <view>
           <datasources>
@@ -1839,26 +1972,50 @@
             <column-instance column='[__tableau_internal_object_id__].[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]' derivation='Count' name='[__tableau_internal_object_id__].[pcto:cnt:fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9:qk]' pivot='key' type='quantitative'>
               <table-calc ordering-type='Rows' type='PctTotal' />
             </column-instance>
+            <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
             <column caption='Category' datatype='string' name='[category]' role='dimension' type='nominal' />
+            <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
             <column-instance column='[category]' derivation='None' name='[none:category:nk]' pivot='key' type='nominal' />
+            <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:ok]' pivot='key' type='ordinal' />
             <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
             <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action2_3A7C1B21B0624E22A4F6FB05B6166C6B]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[mn:booking_date:ok]' />
+              <groupfilter function='level-members' level='[none:no_guests:ok]' />
+            </groupfilter>
+          </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
             <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
-            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[room_class]' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]</column>
           </slices>
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='tick-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='cell'>
+            <format attr='color' value='#d4d4d4' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='color' value='#d4d4d4' />
+          </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#f9e9e0' />
+            <format attr='background-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='zeroline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
           </style-rule>
         </style>
         <panes>
@@ -1890,10 +2047,11 @@
       <layout-options>
         <title>
           <formatted-text>
-            <run fontsize='9'>Bookings per month by property category</run>
+            <run fontcolor='#f28e2b' fontsize='9'>Bookings per month by property category</run>
           </formatted-text>
         </title>
       </layout-options>
+      <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard/BookingspermonthbyPropertycategory?rev=' id='114823839' path='/workbooks/HospitalityRevenueAnalysisDashboard' revision='' />
       <table>
         <view>
           <datasources>
@@ -1905,25 +2063,63 @@
             <column caption='Category' datatype='string' name='[category]' role='dimension' type='nominal' />
             <column-instance column='[booking_id]' derivation='Count' name='[cnt:booking_id:qk]' pivot='key' type='quantitative' />
             <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
             <column-instance column='[category]' derivation='None' name='[none:category:nk]' pivot='key' type='nominal' />
+            <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:ok]' pivot='key' type='ordinal' />
             <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
             <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]'>
+            <groupfilter function='level-members' level='[category]' user:ui-action-filter='[Action6_94EF4C432E014B8C9BAE5B59DBA0FC90]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action2_3A7C1B21B0624E22A4F6FB05B6166C6B]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[mn:booking_date:ok]' />
+              <groupfilter function='level-members' level='[none:no_guests:ok]' />
+            </groupfilter>
+          </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
             <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
-            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[room_class]' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]</column>
           </slices>
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[cnt:booking_id:qk]' scope='rows' value='' />
+            <format attr='tick-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='field-labels'>
+            <format attr='color' value='#000000' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='color' value='#d4d4d4' />
+          </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#f9e9e0' />
+            <format attr='background-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='gridline'>
+            <format attr='stroke-size' scope='rows' value='0' />
+            <format attr='line-visibility' scope='rows' value='off' />
+          </style-rule>
+          <style-rule element='zeroline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
+          </style-rule>
+          <style-rule element='table-div'>
+            <format attr='stroke-size' scope='rows' value='0' />
+            <format attr='stroke-size' scope='cols' value='0' />
           </style-rule>
         </style>
         <panes>
@@ -1935,6 +2131,16 @@
             <encodings>
               <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:category:nk]' />
             </encodings>
+            <style>
+              <style-rule element='datalabel'>
+                <format attr='color-mode' value='match' />
+                <format attr='color' value='#000000' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='false' />
+              </style-rule>
+            </style>
           </pane>
         </panes>
         <rows>[federated.1dw7zvt169ov9910lky0d10tjyj2].[cnt:booking_id:qk]</rows>
@@ -1946,10 +2152,11 @@
       <layout-options>
         <title>
           <formatted-text>
-            <run fontsize='9'>Guests per month</run>
+            <run fontcolor='#f28e2b' fontsize='9'>Guests per month</run>
           </formatted-text>
         </title>
       </layout-options>
+      <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard/Guestspermonth?rev=' id='114823840' path='/workbooks/HospitalityRevenueAnalysisDashboard' revision='' />
       <table>
         <view>
           <datasources>
@@ -1957,6 +2164,7 @@
           </datasources>
           <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
             <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
+            <column caption='Category' datatype='string' name='[category]' role='dimension' type='nominal' />
             <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:qk]' pivot='key' type='quantitative' />
             <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
             <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:qk]' pivot='key' type='quantitative' />
@@ -1965,21 +2173,46 @@
             <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
             <column-instance column='[revenue_generated]' derivation='Sum' name='[sum:revenue_generated:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]'>
+            <groupfilter function='level-members' level='[category]' user:ui-action-filter='[Action6_94EF4C432E014B8C9BAE5B59DBA0FC90]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
             <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
-            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[room_class]' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]</column>
           </slices>
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='tick-color' value='#00000000' />
+            <format attr='title' class='0' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[mn:booking_date:qk]' scope='cols' value='' />
+            <format attr='title' class='0' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' scope='rows' value='' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='color' value='#d4d4d4' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:no_guests:qk]' palette='purple_10_0' type='interpolated' />
+          </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#f9e9e0' />
+            <format attr='background-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='gridline'>
+            <format attr='stroke-size' value='0' />
+          </style-rule>
+          <style-rule element='zeroline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
+          </style-rule>
+          <style-rule element='table-div'>
+            <format attr='div-level' scope='rows' value='1' />
           </style-rule>
         </style>
         <panes>
@@ -2002,10 +2235,11 @@
       <layout-options>
         <title>
           <formatted-text>
-            <run fontsize='9'>Revenue by Property</run>
+            <run fontcolor='#f28e2b' fontsize='9'>Revenue by Property</run>
           </formatted-text>
         </title>
       </layout-options>
+      <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard/RevenuebyProperty?rev=' id='114823836' path='/workbooks/HospitalityRevenueAnalysisDashboard' revision='' />
       <table>
         <view>
           <datasources>
@@ -2015,6 +2249,11 @@
             <column caption='Realization %' datatype='real' name='[Calculation_1041176003837947904]' role='measure' type='quantitative'>
               <calculation class='tableau' formula='(SUM([revenue_realized]) / SUM([revenue_generated])) * 100' />
             </column>
+            <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
+            <column caption='Category' datatype='string' name='[category]' role='dimension' type='nominal' />
+            <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
+            <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:ok]' pivot='key' type='ordinal' />
             <column-instance column='[property_name]' derivation='None' name='[none:property_name:nk]' pivot='key' type='nominal' />
             <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
             <column caption='Revenue Generated' datatype='integer' name='[revenue_generated]' role='measure' type='quantitative' />
@@ -2023,11 +2262,20 @@
             <column-instance column='[revenue_generated]' derivation='Sum' name='[sum:revenue_generated:qk]' pivot='key' type='quantitative' />
             <column-instance column='[Calculation_1041176003837947904]' derivation='User' name='[usr:Calculation_1041176003837947904:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]'>
+            <groupfilter function='level-members' level='[category]' user:ui-action-filter='[Action6_94EF4C432E014B8C9BAE5B59DBA0FC90]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action2_3A7C1B21B0624E22A4F6FB05B6166C6B]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[mn:booking_date:ok]' />
+              <groupfilter function='level-members' level='[none:no_guests:ok]' />
+            </groupfilter>
+          </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
             <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action3_E542170DA65E4ECA912A451F76A57F29]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
-            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[room_class]' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:property_name:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' shelf='rows' />
@@ -2035,21 +2283,44 @@
           <slices>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]</column>
           </slices>
           <aggregation value='true' />
         </view>
         <style>
           <style-rule element='axis'>
+            <format attr='tick-color' value='#00000000' />
+            <format attr='stroke-size' value='1' />
+            <format attr='line-visibility' value='on' />
+            <format attr='line-pattern-only' value='solid' />
             <format attr='display' class='0' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' scope='cols' value='true' />
+            <format attr='title' class='0' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' scope='cols' value='' />
+          </style-rule>
+          <style-rule element='cell'>
+            <format attr='color' value='#d4d4d4' />
           </style-rule>
           <style-rule element='label'>
             <format attr='display' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:property_name:nk]' value='true' />
+            <format attr='color' value='#d4d4d4' />
           </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#f9e9e0' />
+            <format attr='background-color' value='#00000000' />
           </style-rule>
           <style-rule element='worksheet'>
             <format attr='color' value='#666666' />
+            <format attr='display-field-labels' scope='cols' value='false' />
+            <format attr='display-field-labels' scope='rows' value='false' />
+          </style-rule>
+          <style-rule element='gridline'>
+            <format attr='stroke-size' value='0' />
+          </style-rule>
+          <style-rule element='zeroline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
+          </style-rule>
+          <style-rule element='table-div'>
+            <format attr='div-level' scope='rows' value='1' />
           </style-rule>
         </style>
         <panes>
@@ -2063,8 +2334,9 @@
             </encodings>
             <style>
               <style-rule element='mark'>
-                <format attr='mark-labels-show' value='true' />
                 <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='false' />
+                <format attr='mark-color' value='#b07aa1' />
               </style-rule>
             </style>
           </pane>
@@ -2078,10 +2350,11 @@
       <layout-options>
         <title>
           <formatted-text>
-            <run fontsize='9'>Revenue by city</run>
+            <run fontcolor='#f28e2b' fontsize='9'>Revenue by city</run>
           </formatted-text>
         </title>
       </layout-options>
+      <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard/Revenuebycity?rev=' id='114823844' path='/workbooks/HospitalityRevenueAnalysisDashboard' revision='' />
       <table>
         <view>
           <datasources>
@@ -2091,24 +2364,25 @@
             <mapsource name='Tableau' />
           </mapsources>
           <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
-            <column-instance column='[__tableau_internal_object_id__].[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]' derivation='Count' name='[__tableau_internal_object_id__].[cnt:fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9:qk]' pivot='key' type='quantitative' />
-            <column caption='fact_bookings.csv' datatype='table' name='[__tableau_internal_object_id__].[fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9]' role='measure' type='quantitative' />
-            <column caption='City (Dim Hotels.Csv1)' datatype='string' name='[city (dim_hotels.csv1)]' role='dimension' semantic-role='[City].[Name]' type='nominal' />
-            <column-instance column='[city (dim_hotels.csv1)]' derivation='None' name='[none:city (dim_hotels.csv1):nk]' pivot='key' type='nominal' />
-            <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
+            <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
+            <column caption='City' datatype='string' name='[city]' role='dimension' semantic-role='[City].[Name]' type='nominal' />
+            <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
+            <column-instance column='[city]' derivation='None' name='[none:city:nk]' pivot='key' type='nominal' />
+            <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:ok]' pivot='key' type='ordinal' />
+            <column caption='Revenue Generated' datatype='integer' name='[revenue_generated]' role='measure' type='quantitative' />
             <column caption='Revenue Realized' datatype='integer' name='[revenue_realized]' role='measure' type='quantitative' />
-            <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
+            <column-instance column='[revenue_generated]' derivation='Sum' name='[sum:revenue_generated:qk]' pivot='key' type='quantitative' />
             <column-instance column='[revenue_realized]' derivation='Sum' name='[sum:revenue_realized:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
-          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
-            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
-          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
-            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action2_3A7C1B21B0624E22A4F6FB05B6166C6B]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[mn:booking_date:ok]' />
+              <groupfilter function='level-members' level='[none:no_guests:ok]' />
+            </groupfilter>
           </filter>
           <slices>
-            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
-            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -2116,12 +2390,53 @@
           <style-rule element='axis'>
             <encoding attr='space' class='0' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Longitude (generated)]' field-type='quantitative' max='10842607.749657908' min='7589706.8624366615' projection='EPSG:3857' range-type='fixed' scope='cols' type='space' />
             <encoding attr='space' class='0' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Latitude (generated)]' field-type='quantitative' max='4234855.5134540489' min='753632.79353467829' projection='EPSG:3857' range-type='fixed' scope='rows' type='space' />
+            <format attr='tick-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' palette='purple_10_0' type='interpolated' />
           </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#f9e9e0' />
+            <format attr='background-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='table-div'>
+            <format attr='stroke-size' scope='rows' value='0' />
+            <format attr='line-visibility' scope='rows' value='off' />
+            <format attr='stroke-size' scope='cols' value='0' />
+            <format attr='line-visibility' scope='cols' value='off' />
+          </style-rule>
+          <style-rule element='map-layer'>
+            <format attr='enabled' id='b01002_001e' value='false' />
+            <format attr='enabled' id='b01002_002e' value='false' />
+            <format attr='enabled' id='b01002_003e' value='false' />
+            <format attr='enabled' id='dp02_0001e' value='false' />
+            <format attr='enabled' id='dp02_0015e' value='false' />
+            <format attr='enabled' id='dp03_0027e_plus_dp03_0029e' value='false' />
+            <format attr='enabled' id='dp03_0028e' value='false' />
+            <format attr='enabled' id='dp03_0030e_plus_dp03_0031e' value='false' />
+            <format attr='enabled' id='dp03_0062e' value='false' />
+            <format attr='enabled' id='dp03_0088e' value='false' />
+            <format attr='enabled' id='dp04_0001e' value='false' />
+            <format attr='enabled' id='dp04_0046e' value='false' />
+            <format attr='enabled' id='dp04_0047e' value='false' />
+            <format attr='enabled' id='dp04_0089e' value='false' />
+            <format attr='enabled' id='dp05_0001e' value='false' />
+            <format attr='enabled' id='dp05_0002e_div_dp05_0003e' value='false' />
+            <format attr='enabled' id='dp05_0032e' value='false' />
+            <format attr='enabled' id='dp05_0033e' value='false' />
+            <format attr='enabled' id='dp05_0034e' value='false' />
+            <format attr='enabled' id='dp05_0039e' value='false' />
+            <format attr='enabled' id='dp05_0047e' value='false' />
+            <format attr='enabled' id='dp05_0053e' value='false' />
+            <format attr='enabled' id='dp05_0066e' value='false' />
+            <format attr='enabled' id='dp05_0077e' value='false' />
           </style-rule>
           <style-rule element='map'>
-            <format attr='washout' value='0.0' />
+            <format attr='washout' value='0' />
+            <format attr='map-style' value='dark' />
+          </style-rule>
+          <style-rule element='map-data-layer'>
+            <format attr='palette' value='tableau-map-blue-green-light' />
+            <format attr='geo-area-type' value='State' />
           </style-rule>
         </style>
         <panes>
@@ -2130,16 +2445,20 @@
               <breakdown value='auto' />
             </view>
             <mark class='Multipolygon' />
+            <mark-sizing mark-sizing-setting='marks-scaling-off' />
             <encodings>
               <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' />
-              <size column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[__tableau_internal_object_id__].[cnt:fact_bookings.csv_8BF22FDD157845769BC9AF02E36B82B9:qk]' />
-              <lod column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:city (dim_hotels.csv1):nk]' />
+              <size column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' />
+              <lod column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:city:nk]' />
               <geometry column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Geometry (generated)]' />
             </encodings>
             <style>
               <style-rule element='mark'>
                 <format attr='mark-labels-cull' value='true' />
                 <format attr='mark-labels-show' value='false' />
+                <format attr='mark-transparency' value='221' />
+                <format attr='size' value='14.547999382019043' />
+                <format attr='has-stroke' value='false' />
               </style-rule>
             </style>
           </pane>
@@ -2153,10 +2472,11 @@
       <layout-options>
         <title>
           <formatted-text>
-            <run fontsize='9'>Revenue per room category</run>
+            <run fontcolor='#f28e2b' fontsize='9'>Revenue per room category</run>
           </formatted-text>
         </title>
       </layout-options>
+      <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard/Revenueperroomcategory?rev=' id='114823842' path='/workbooks/HospitalityRevenueAnalysisDashboard' revision='' />
       <table>
         <view>
           <datasources>
@@ -2164,27 +2484,63 @@
           </datasources>
           <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
             <column-instance column='[revenue_realized]' derivation='Avg' name='[avg:revenue_realized:qk]' pivot='key' type='quantitative' />
+            <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
+            <column caption='Category' datatype='string' name='[category]' role='dimension' type='nominal' />
+            <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
+            <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:ok]' pivot='key' type='ordinal' />
             <column-instance column='[room_class]' derivation='None' name='[none:room_class:nk]' pivot='key' type='nominal' />
             <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
             <column caption='Revenue Realized' datatype='integer' name='[revenue_realized]' role='measure' type='quantitative' />
             <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
             <column-instance column='[revenue_realized]' derivation='Sum' name='[sum:revenue_realized:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]'>
+            <groupfilter function='level-members' level='[category]' user:ui-action-filter='[Action6_94EF4C432E014B8C9BAE5B59DBA0FC90]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action2_3A7C1B21B0624E22A4F6FB05B6166C6B]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[mn:booking_date:ok]' />
+              <groupfilter function='level-members' level='[none:no_guests:ok]' />
+            </groupfilter>
+          </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
             <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
-            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[room_class]' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]</column>
           </slices>
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='tick-color' value='#00000000' />
+            <format attr='title' class='0' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' scope='cols' value='' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='color' value='#d4d4d4' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[avg:revenue_realized:qk]' palette='purple_10_0' type='interpolated' />
+          </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#f9e9e0' />
+            <format attr='background-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+          </style-rule>
+          <style-rule element='gridline'>
+            <format attr='stroke-size' value='0' />
+          </style-rule>
+          <style-rule element='zeroline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
           </style-rule>
         </style>
         <panes>
@@ -2207,33 +2563,86 @@
       <layout-options>
         <title>
           <formatted-text>
-            <run fontsize='9'>Bookings by Room class</run>
+            <run fontcolor='#f28e2b' fontsize='9'>Bookings by Room class</run>
           </formatted-text>
         </title>
       </layout-options>
+      <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard/Totalbookingsforroomclass?rev=' id='114823837' path='/workbooks/HospitalityRevenueAnalysisDashboard' revision='' />
       <table>
         <view>
           <datasources>
             <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
           </datasources>
           <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
             <column caption='Booking Id' datatype='string' name='[booking_id]' role='dimension' type='nominal' />
+            <column caption='Category' datatype='string' name='[category]' role='dimension' type='nominal' />
             <column-instance column='[booking_id]' derivation='Count' name='[cnt:booking_id:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
+            <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:ok]' pivot='key' type='ordinal' />
             <column-instance column='[room_class]' derivation='None' name='[none:room_class:nk]' pivot='key' type='nominal' />
             <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
             <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]'>
+            <groupfilter function='level-members' level='[category]' user:ui-action-filter='[Action6_94EF4C432E014B8C9BAE5B59DBA0FC90]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action2_3A7C1B21B0624E22A4F6FB05B6166C6B]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[mn:booking_date:ok]' />
+              <groupfilter function='level-members' level='[none:no_guests:ok]' />
+            </groupfilter>
+          </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
             <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
+            <groupfilter function='level-members' level='[room_class]' user:ui-action-filter='[Action5_3371AE4BCBB84BFD950EBC922949748B]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
           <slices>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Category)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]</column>
           </slices>
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='stroke-size' scope='rows' value='0' />
+            <format attr='tick-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='cell'>
+            <format attr='color' value='#ffffff' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='border-width' data-class='total' value='1' />
+            <format attr='border-style' data-class='total' value='solid' />
+            <format attr='border-width' data-class='subtotal' value='1' />
+            <format attr='border-style' data-class='subtotal' value='solid' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='color' value='#d4d4d4' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[cnt:booking_id:qk]' palette='purple_10_0' type='interpolated' />
+          </style-rule>
+          <style-rule element='pane'>
+            <format attr='border-width' data-class='total' value='1' />
+            <format attr='border-style' data-class='total' value='solid' />
+            <format attr='border-width' data-class='subtotal' value='1' />
+            <format attr='border-style' data-class='subtotal' value='solid' />
+          </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#f9e9e0' />
+            <format attr='background-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='gridline'>
+            <format attr='stroke-size' scope='rows' value='0' />
+          </style-rule>
+          <style-rule element='zeroline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
           </style-rule>
         </style>
         <panes>
@@ -2258,6 +2667,7 @@
                 <format attr='mark-labels-mode' value='all' />
                 <format attr='mark-labels-range-scope' value='pane' />
                 <format attr='mark-labels-range-field' value='' />
+                <format attr='has-stroke' value='false' />
               </style-rule>
             </style>
           </pane>
@@ -2276,26 +2686,38 @@
           </formatted-text>
         </title>
       </layout-options>
+      <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard/Totalrevenuegenerated?rev=' id='114823833' path='/workbooks/HospitalityRevenueAnalysisDashboard' revision='' />
       <table>
         <view>
           <datasources>
             <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
           </datasources>
           <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
+            <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
+            <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:ok]' pivot='key' type='ordinal' />
             <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
             <column caption='Revenue Generated' datatype='integer' name='[revenue_generated]' role='measure' type='quantitative' />
             <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
             <column-instance column='[revenue_generated]' derivation='Sum' name='[sum:revenue_generated:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action2_3A7C1B21B0624E22A4F6FB05B6166C6B]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[mn:booking_date:ok]' />
+              <groupfilter function='level-members' level='[none:no_guests:ok]' />
+            </groupfilter>
+          </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
-            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_5020A466ADA44DE7A82543CB7721E286]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
-            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[room_class]' user:ui-action-filter='[Action5_3371AE4BCBB84BFD950EBC922949748B]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -2306,12 +2728,16 @@
             <format attr='text-align' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' value='left' />
             <format attr='vertical-align' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' value='top' />
             <format attr='font-weight' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' value='bold' />
+            <format attr='color' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' value='#ffffff' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='color' value='#ffffff' />
           </style-rule>
           <style-rule element='mark'>
             <encoding attr='color' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' palette='purple_10_0' type='interpolated' />
           </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#f9e9e0' />
+            <format attr='background-color' value='#00000000' />
           </style-rule>
         </style>
         <panes>
@@ -2321,13 +2747,23 @@
             </view>
             <mark class='Automatic' />
             <encodings>
-              <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' />
               <text column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]' />
             </encodings>
+            <customized-label>
+              <formatted-text>
+                <run fontcolor='#f28e2b' fontsize='8'>Total Revenue Generated</run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#f28e2b' fontsize='16'><![CDATA[<[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_generated:qk]>]]></run>
+              </formatted-text>
+            </customized-label>
             <style>
+              <style-rule element='cell'>
+                <format attr='text-align' value='center' />
+                <format attr='vertical-align' value='center' />
+              </style-rule>
               <style-rule element='mark'>
-                <format attr='mark-labels-show' value='true' />
                 <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='true' />
               </style-rule>
             </style>
           </pane>
@@ -2345,26 +2781,38 @@
           </formatted-text>
         </title>
       </layout-options>
+      <repository-location derived-from='https://haproxy-traffic-splitter/workbooks/HospitalityRevenueAnalysisDashboard/Totalrevenuerealized?rev=' id='114823834' path='/workbooks/HospitalityRevenueAnalysisDashboard' revision='' />
       <table>
         <view>
           <datasources>
             <datasource caption='fact_bookings+' name='federated.1dw7zvt169ov9910lky0d10tjyj2' />
           </datasources>
           <datasource-dependencies datasource='federated.1dw7zvt169ov9910lky0d10tjyj2'>
+            <column caption='Booking Date' datatype='date' name='[booking_date]' role='dimension' type='ordinal' />
+            <column-instance column='[booking_date]' derivation='Month' name='[mn:booking_date:ok]' pivot='key' type='ordinal' />
+            <column caption='No Guests' datatype='integer' name='[no_guests]' role='measure' type='quantitative' />
+            <column-instance column='[no_guests]' derivation='None' name='[none:no_guests:ok]' pivot='key' type='ordinal' />
             <column caption='Property Name' datatype='string' name='[property_name]' role='dimension' type='nominal' />
             <column caption='Revenue Realized' datatype='integer' name='[revenue_realized]' role='measure' type='quantitative' />
             <column caption='Room Class' datatype='string' name='[room_class]' role='dimension' type='nominal' />
             <column-instance column='[revenue_realized]' derivation='Sum' name='[sum:revenue_realized:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action2_3A7C1B21B0624E22A4F6FB05B6166C6B]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[mn:booking_date:ok]' />
+              <groupfilter function='level-members' level='[none:no_guests:ok]' />
+            </groupfilter>
+          </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]'>
-            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_78C1866283774866A0DE0D5B20A5D0AC]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[property_name]' user:ui-action-filter='[Action1_5020A466ADA44DE7A82543CB7721E286]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]'>
-            <groupfilter function='member' level='[room_class]' member='&quot;Elite&quot;' user:ui-action-filter='[Action2_F050335784F649BA8336017B0B4782DE]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[room_class]' user:ui-action-filter='[Action5_3371AE4BCBB84BFD950EBC922949748B]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Property Name)]</column>
             <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (Room Class)]</column>
+            <column>[federated.1dw7zvt169ov9910lky0d10tjyj2].[Action (MONTH(Booking Date),No Guests)]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -2380,7 +2828,7 @@
             <encoding attr='color' field='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' palette='purple_10_0' type='interpolated' />
           </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#f9e9e0' />
+            <format attr='background-color' value='#00000000' />
           </style-rule>
         </style>
         <panes>
@@ -2390,10 +2838,20 @@
             </view>
             <mark class='Automatic' />
             <encodings>
-              <color column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' />
               <text column='[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]' />
             </encodings>
+            <customized-label>
+              <formatted-text>
+                <run fontcolor='#f28e2b' fontsize='8'>Total revenue realized</run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#f28e2b' fontsize='16'><![CDATA[<[federated.1dw7zvt169ov9910lky0d10tjyj2].[sum:revenue_realized:qk]>]]></run>
+              </formatted-text>
+            </customized-label>
             <style>
+              <style-rule element='cell'>
+                <format attr='text-align' value='center' />
+                <format attr='vertical-align' value='center' />
+              </style-rule>
               <style-rule element='mark'>
                 <format attr='mark-labels-cull' value='true' />
                 <format attr='mark-labels-show' value='true' />
@@ -2408,41 +2866,21 @@
     </worksheet>
   </worksheets>
   <dashboards>
-    <dashboard enable-sort-zone-taborder='true' name='Hospitality Revenue Optimization Dashboard'>
-      <style>
-        <style-rule element='table'>
-          <format attr='background-color' value='#f9f3ef' />
-        </style-rule>
-      </style>
-      <size sizing-mode='automatic' />
+    <dashboard enable-sort-zone-taborder='true' name='Hospitality Dashboard'>
+      <style />
+      <size maxheight='900' maxwidth='1600' minheight='900' minwidth='1600' preset-index='8' sizing-mode='fixed' />
       <zones>
-        <zone h='100000' id='2' type-v2='layout-basic' w='100000' x='0' y='0'>
-          <zone h='98358' id='28' param='horz' type-v2='layout-flow' w='44805' x='417' y='821'>
-            <zone h='98358' id='1' param='vert' type-v2='layout-flow' w='44805' x='417' y='821'>
-              <zone h='6256' id='3' type-v2='text' w='44805' x='417' y='821'>
-                <formatted-text>
-                  <run bold='true' fontcolor='#000000' fontsize='15'>Hospitality Revenue Optimization Dashboard</run>
-                  <run>Æ&#10;</run>
-                </formatted-text>
-                <zone-style>
-                  <format attr='border-color' value='#000000' />
-                  <format attr='border-style' value='none' />
-                  <format attr='border-width' value='0' />
-                  <format attr='margin' value='10' />
-                  <format attr='padding' value='10' />
-                  <format attr='background-color' value='#f9e9e0' />
-                </zone-style>
-              </zone>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98222' id='3' param='vert' type-v2='layout-flow' w='99000' x='500' y='889'>
+            <zone h='98222' id='5' is-scaled='1' param='Image/Tableau_Mockup_Hospitality_Dashboard.jpg' type-v2='bitmap' w='99000' x='500' y='889'>
               <zone-style>
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
                 <format attr='border-width' value='0' />
-                <format attr='margin' value='0' />
-                <format attr='padding' value='0' />
+                <format attr='margin' value='4' />
               </zone-style>
             </zone>
           </zone>
-          <zone h='98358' id='39' param='vert' type-v2='layout-flow' w='54361' x='45222' y='821' />
           <zone-style>
             <format attr='border-color' value='#000000' />
             <format attr='border-style' value='none' />
@@ -2450,99 +2888,8 @@
             <format attr='margin' value='8' />
           </zone-style>
         </zone>
-        <zone h='16890' id='5' param='horz' type-v2='layout-flow' w='24198' x='385' y='8177'>
-          <zone h='16890' id='6' name='Total revenue generated' w='24198' x='385' y='8177'>
-            <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
-            <zone-style>
-              <format attr='border-color' value='#000000' />
-              <format attr='border-style' value='none' />
-              <format attr='border-width' value='0' />
-              <format attr='margin' value='10' />
-              <format attr='padding' value='10' />
-              <format attr='background-color' value='#f9e9e0' />
-            </zone-style>
-          </zone>
-        </zone>
-        <zone h='17694' id='7' param='horz' type-v2='layout-flow' w='22465' x='24326' y='8177'>
-          <zone h='17694' id='8' name='Total revenue realized' w='22465' x='24326' y='8177'>
-            <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
-            <zone-style>
-              <format attr='border-color' value='#000000' />
-              <format attr='border-style' value='none' />
-              <format attr='border-width' value='0' />
-              <format attr='margin' value='10' />
-              <format attr='padding' value='10' />
-              <format attr='background-color' value='#f9e9e0' />
-            </zone-style>
-          </zone>
-        </zone>
-        <zone h='25737' id='9' param='horz' type-v2='layout-flow' w='15148' x='46085' y='4155'>
-          <zone h='25737' id='10' name='Average revenue per booking' w='15148' x='46085' y='4155'>
-            <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
-            <zone-style>
-              <format attr='border-color' value='#000000' />
-              <format attr='border-style' value='none' />
-              <format attr='border-width' value='0' />
-              <format attr='margin' value='10' />
-              <format attr='padding' value='10' />
-              <format attr='background-color' value='#f9e9e0' />
-            </zone-style>
-          </zone>
-        </zone>
-        <zone h='39946' id='11' param='horz' type-v2='layout-flow' w='24262' x='706' y='24397'>
-          <zone h='39946' id='12' name='Revenue by Property' w='24262' x='706' y='24397'>
-            <layout-cache minwidth='240' type-h='fixed' type-w='scalable' />
-            <zone-style>
-              <format attr='border-color' value='#000000' />
-              <format attr='border-style' value='none' />
-              <format attr='border-width' value='0' />
-              <format attr='margin' value='10' />
-              <format attr='padding' value='10' />
-              <format attr='background-color' value='#f9e9e0' />
-            </zone-style>
-          </zone>
-        </zone>
-        <zone h='36059' id='13' param='horz' type-v2='layout-flow' w='21438' x='642' y='63405'>
-          <zone h='36059' id='14' name='Total bookings for room class' w='21438' x='642' y='63405'>
-            <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
-            <zone-style>
-              <format attr='border-color' value='#000000' />
-              <format attr='border-style' value='none' />
-              <format attr='border-width' value='0' />
-              <format attr='margin' value='10' />
-              <format attr='padding' value='10' />
-              <format attr='background-color' value='#f9e9e0' />
-            </zone-style>
-          </zone>
-        </zone>
-        <zone h='35389' id='15' param='horz' type-v2='layout-flow' w='20411' x='25610' y='26810'>
-          <zone h='35389' id='16' name='Guests per month' w='20411' x='25610' y='26810'>
-            <layout-cache minwidth='194' type-h='fixed' type-w='scalable' />
-            <zone-style>
-              <format attr='border-color' value='#000000' />
-              <format attr='border-style' value='none' />
-              <format attr='border-width' value='0' />
-              <format attr='margin' value='10' />
-              <format attr='padding' value='10' />
-              <format attr='background-color' value='#f9e9e0' />
-            </zone-style>
-          </zone>
-        </zone>
-        <zone h='36059' id='17' param='horz' type-v2='layout-flow' w='22529' x='22657' y='62735'>
-          <zone h='36059' id='18' name='Average rating per hotel' w='22529' x='22657' y='62735'>
-            <layout-cache minwidth='240' type-h='fixed' type-w='scalable' />
-            <zone-style>
-              <format attr='border-color' value='#000000' />
-              <format attr='border-style' value='none' />
-              <format attr='border-width' value='0' />
-              <format attr='margin' value='10' />
-              <format attr='padding' value='10' />
-              <format attr='background-color' value='#f9e9e0' />
-            </zone-style>
-          </zone>
-        </zone>
-        <zone h='26005' id='19' param='horz' type-v2='layout-flow' w='14249' x='60847' y='4021'>
-          <zone h='21901' id='20' name='Bookings by Property Category' w='12165' x='61889' y='6073'>
+        <zone h='15778' id='6' param='horz' type-v2='layout-flow' w='19375' x='2563' y='16556'>
+          <zone fixed-size='302' h='15778' id='7' is-fixed='true' name='Total revenue generated' show-title='false' w='19375' x='2563' y='16556'>
             <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
             <zone-style>
               <format attr='border-color' value='#000000' />
@@ -2551,91 +2898,173 @@
               <format attr='margin' value='4' />
             </zone-style>
           </zone>
-          <zone-style>
-            <format attr='border-color' value='#000000' />
-            <format attr='border-style' value='none' />
-            <format attr='border-width' value='0' />
-            <format attr='margin' value='10' />
-            <format attr='padding' value='10' />
-            <format attr='background-color' value='#f9e9e0' />
-          </zone-style>
         </zone>
-        <zone h='35121' id='21' param='horz' type-v2='layout-flow' w='27599' x='46149' y='30295'>
-          <zone h='35121' id='22' name='Bookings per month by Property category' w='27599' x='46149' y='30295'>
-            <layout-cache cell-count-w='4' minheight='189' non-cell-size-w='78' type-h='scalable' type-w='cell' />
+        <zone h='15667' id='8' param='horz' type-v2='layout-flow' w='17438' x='23125' y='16444'>
+          <zone fixed-size='271' h='15667' id='9' is-fixed='true' name='Total revenue realized' show-title='false' w='17438' x='23125' y='16444'>
+            <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
             <zone-style>
               <format attr='border-color' value='#000000' />
               <format attr='border-style' value='none' />
               <format attr='border-width' value='0' />
-              <format attr='margin' value='10' />
-              <format attr='padding' value='10' />
-              <format attr='background-color' value='#f9e9e0' />
+              <format attr='margin' value='4' />
             </zone-style>
           </zone>
         </zone>
-        <zone h='33244' id='23' param='horz' type-v2='layout-flow' w='23813' x='75546' y='1340'>
-          <zone h='33244' id='24' name='Revenue by city' w='23813' x='75546' y='1340'>
-            <layout-cache minheight='241' minwidth='202' type-h='scalable' type-w='scalable' />
+        <zone h='15333' id='10' param='horz' type-v2='layout-flow' w='14063' x='41938' y='16556'>
+          <zone fixed-size='217' h='15333' id='11' is-fixed='true' name='Average revenue per booking' show-title='false' w='14063' x='41938' y='16556'>
+            <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
             <zone-style>
               <format attr='border-color' value='#000000' />
               <format attr='border-style' value='none' />
               <format attr='border-width' value='0' />
-              <format attr='margin' value='10' />
-              <format attr='padding' value='10' />
-              <format attr='background-color' value='#f9e9e0' />
+              <format attr='margin' value='4' />
             </zone-style>
           </zone>
         </zone>
-        <zone h='33244' id='25' param='horz' type-v2='layout-flow' w='22786' x='44994' y='65952'>
-          <zone h='33244' id='26' name='Booking staus count by month' w='22786' x='44994' y='65952'>
-            <layout-cache cell-count-w='4' minheight='189' non-cell-size-w='78' type-h='scalable' type-w='cell' />
+        <zone h='27556' id='14' param='horz' type-v2='layout-flow' w='19250' x='57438' y='4222'>
+          <zone fixed-size='300' h='27556' id='15' is-fixed='true' name='Bookings per month by Property category' w='19250' x='57438' y='4222'>
+            <layout-cache cell-count-w='4' minheight='194' non-cell-size-w='40' type-h='scalable' type-w='cell' />
             <zone-style>
               <format attr='border-color' value='#000000' />
               <format attr='border-style' value='none' />
               <format attr='border-width' value='0' />
-              <format attr='margin' value='10' />
-              <format attr='padding' value='10' />
-              <format attr='background-color' value='#f9e9e0' />
+              <format attr='margin' value='4' />
             </zone-style>
           </zone>
         </zone>
-        <zone h='32038' id='29' param='horz' type-v2='layout-flow' w='24840' x='74904' y='33110'>
-          <zone h='32038' id='30' name='Revenue per room category' w='24840' x='74904' y='33110'>
-            <layout-cache minwidth='220' type-h='fixed' type-w='scalable' />
+        <zone h='27667' id='17' param='horz' type-v2='layout-flow' w='18938' x='78250' y='3889'>
+          <zone fixed-size='295' h='27667' id='18' is-fixed='true' name='Revenue by city' w='18938' x='78250' y='3889'>
+            <layout-cache minheight='240' minwidth='200' type-h='scalable' type-w='scalable' />
             <zone-style>
               <format attr='border-color' value='#000000' />
               <format attr='border-style' value='none' />
               <format attr='border-width' value='0' />
-              <format attr='margin' value='10' />
-              <format attr='padding' value='10' />
-              <format attr='background-color' value='#f9e9e0' />
+              <format attr='margin' value='4' />
             </zone-style>
           </zone>
         </zone>
-        <zone h='33244' id='31' param='horz' type-v2='layout-flow' w='30680' x='68485' y='65416'>
-          <zone h='33244' id='32' name='Booking platform preference by room type' w='30680' x='68485' y='65416'>
-            <layout-cache cell-count-w='7' non-cell-size-w='121' type-h='cell' type-w='cell' />
+        <zone h='29000' id='21' param='horz' type-v2='layout-flow' w='25313' x='2625' y='34444'>
+          <zone fixed-size='397' h='29000' id='22' is-fixed='true' name='Revenue by Property' w='25313' x='2625' y='34444'>
+            <layout-cache minwidth='240' type-h='cell' type-w='scalable' />
             <zone-style>
               <format attr='border-color' value='#000000' />
               <format attr='border-style' value='none' />
               <format attr='border-width' value='0' />
-              <format attr='margin' value='10' />
-              <format attr='padding' value='10' />
-              <format attr='background-color' value='#f9e9e0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='28889' id='23' param='horz' type-v2='layout-flow' w='26625' x='29313' y='34333'>
+          <zone fixed-size='418' h='28889' id='24' is-fixed='true' name='Guests per month' w='26625' x='29313' y='34333'>
+            <layout-cache minheight='172' minwidth='156' type-h='scalable' type-w='scalable' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='29000' id='25' param='horz' type-v2='layout-flow' w='19438' x='57313' y='34333'>
+          <zone fixed-size='303' h='29000' id='26' is-fixed='true' name='Revenue per room category' w='19438' x='57313' y='34333'>
+            <layout-cache minwidth='220' type-h='cell' type-w='scalable' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='28778' id='27' param='horz' type-v2='layout-flow' w='19000' x='78250' y='34444'>
+          <zone fixed-size='296' h='28778' id='28' is-fixed='true' name='Bookings by Property Category' w='19000' x='78250' y='34444'>
+            <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='30556' id='29' param='horz' type-v2='layout-flow' w='28563' x='2625' y='65556'>
+          <zone fixed-size='449' h='30556' id='30' is-fixed='true' name='Booking platform preference by room type' w='28563' x='2625' y='65556'>
+            <layout-cache cell-count-w='7' non-cell-size-w='120' type-h='cell' type-w='cell' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='30889' id='31' param='horz' type-v2='layout-flow' w='16813' x='32750' y='65444'>
+          <zone fixed-size='261' h='30889' id='32' is-fixed='true' name='Total bookings for room class' w='16813' x='32750' y='65444'>
+            <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='30111' id='33' param='horz' type-v2='layout-flow' w='18500' x='50938' y='65889'>
+          <zone fixed-size='288' h='30111' id='34' is-fixed='true' name='Average rating per hotel' w='18500' x='50938' y='65889'>
+            <layout-cache minwidth='240' type-h='cell' type-w='scalable' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='30111' id='35' param='horz' type-v2='layout-flow' w='26125' x='71000' y='66000'>
+          <zone fixed-size='410' h='30111' id='36' is-fixed='true' name='Booking staus count by month' w='26125' x='71000' y='66000'>
+            <layout-cache cell-count-w='4' minheight='169' non-cell-size-w='78' type-h='scalable' type-w='cell' />
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+        </zone>
+        <zone h='10556' id='49' param='horz' type-v2='layout-flow' w='53500' x='2563' y='3667'>
+          <zone fixed-size='848' forceUpdate='true' h='8556' id='50' is-fixed='true' type-v2='text' w='53500' x='2563' y='3667'>
+            <formatted-text>
+              <run fontalignment='1'>Æ&#10;</run>
+              <run fontalignment='1' fontcolor='#f28e2b' fontname='Tableau Bold' fontsize='16'>HOSPITALITY REVENUE OPTIMIZATION DASHBOARD</run>
+            </formatted-text>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
             </zone-style>
           </zone>
         </zone>
       </zones>
       <devicelayouts>
         <devicelayout auto-generated='true' name='Phone'>
-          <size maxheight='2850' minheight='2850' sizing-mode='vscroll' />
+          <size maxheight='3450' minheight='3450' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='47' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='97856' id='46' param='vert' type-v2='layout-flow' w='98974' x='513' y='1072'>
-                <zone h='8177' id='3' type-v2='text' w='44722' x='513' y='1072'>
+            <zone h='100000' id='58' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98222' id='57' param='vert' type-v2='layout-flow' w='99000' x='500' y='889'>
+                <zone fixed-size='280' h='98222' id='5' is-fixed='true' is-scaled='1' param='Image/Tableau_Mockup_Hospitality_Dashboard.jpg' type-v2='bitmap' w='99000' x='500' y='889'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='848' forceUpdate='true' h='8556' id='50' type-v2='text' w='53500' x='2563' y='3667'>
                   <formatted-text>
-                    <run bold='true' fontcolor='#000000' fontsize='15'>Hospitality Revenue Optimization Dashboard</run>
-                    <run>Æ&#10;</run>
+                    <run fontalignment='1'>Æ&#10;</run>
+                    <run fontalignment='1' fontcolor='#f28e2b' fontname='Tableau Bold' fontsize='16'>HOSPITALITY REVENUE OPTIMIZATION DASHBOARD</run>
                   </formatted-text>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -2643,21 +3072,29 @@
                     <format attr='border-width' value='0' />
                     <format attr='margin' value='4' />
                     <format attr='padding' value='0' />
-                    <format attr='background-color' value='#f9e9e0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='226' h='33244' id='24' is-fixed='true' name='Revenue by city' w='23813' x='75546' y='1340'>
-                  <layout-cache minheight='241' minwidth='202' type-h='scalable' type-w='scalable' />
+                <zone fixed-size='241' h='27667' id='18' is-fixed='true' name='Revenue by city' w='18938' x='78250' y='3889'>
+                  <layout-cache minheight='240' minwidth='200' type-h='scalable' type-w='scalable' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
                     <format attr='border-width' value='0' />
                     <format attr='margin' value='4' />
                     <format attr='padding' value='0' />
-                    <format attr='background-color' value='#f9e9e0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='166' h='25737' id='10' is-fixed='true' name='Average revenue per booking' w='15148' x='46085' y='4155'>
+                <zone fixed-size='240' h='27556' id='15' is-fixed='true' name='Bookings per month by Property category' w='19250' x='57438' y='4222'>
+                  <layout-cache cell-count-w='4' minheight='194' non-cell-size-w='40' type-h='scalable' type-w='cell' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='133' h='15667' id='9' is-fixed='true' name='Total revenue realized' show-title='false' w='17438' x='23125' y='16444'>
                   <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -2665,10 +3102,9 @@
                     <format attr='border-width' value='0' />
                     <format attr='margin' value='4' />
                     <format attr='padding' value='0' />
-                    <format attr='background-color' value='#f9e9e0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='157' h='20645' id='20' is-fixed='true' name='Bookings by Property Category' w='11681' x='62131' y='6701'>
+                <zone fixed-size='134' h='15778' id='7' is-fixed='true' name='Total revenue generated' show-title='false' w='19375' x='2563' y='16556'>
                   <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -2678,7 +3114,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='96' h='16890' id='6' is-fixed='true' name='Total revenue generated' w='24198' x='385' y='8177'>
+                <zone fixed-size='130' h='15333' id='11' is-fixed='true' name='Average revenue per booking' show-title='false' w='14063' x='41938' y='16556'>
                   <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -2686,10 +3122,39 @@
                     <format attr='border-width' value='0' />
                     <format attr='margin' value='4' />
                     <format attr='padding' value='0' />
-                    <format attr='background-color' value='#f9e9e0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='102' h='17694' id='8' is-fixed='true' name='Total revenue realized' w='22465' x='24326' y='8177'>
+                <zone fixed-size='252' h='28889' id='24' is-fixed='true' name='Guests per month' w='26625' x='29313' y='34333'>
+                  <layout-cache minheight='172' minwidth='156' type-h='scalable' type-w='scalable' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='253' h='29000' id='26' is-fixed='true' name='Revenue per room category' w='19438' x='57313' y='34333'>
+                  <layout-cache minwidth='220' type-h='cell' type-w='scalable' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='253' h='29000' id='22' is-fixed='true' name='Revenue by Property' w='25313' x='2625' y='34444'>
+                  <layout-cache minwidth='240' type-h='cell' type-w='scalable' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='251' h='28778' id='28' is-fixed='true' name='Bookings by Property Category' w='19000' x='78250' y='34444'>
                   <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -2697,65 +3162,9 @@
                     <format attr='border-width' value='0' />
                     <format attr='margin' value='4' />
                     <format attr='padding' value='0' />
-                    <format attr='background-color' value='#f9e9e0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='280' h='39946' id='12' is-fixed='true' name='Revenue by Property' w='24262' x='706' y='24397'>
-                  <layout-cache minwidth='240' type-h='fixed' type-w='scalable' />
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                    <format attr='background-color' value='#f9e9e0' />
-                  </zone-style>
-                </zone>
-                <zone fixed-size='244' h='35389' id='16' is-fixed='true' name='Guests per month' w='20411' x='25610' y='26810'>
-                  <layout-cache minwidth='194' type-h='fixed' type-w='scalable' />
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                    <format attr='background-color' value='#f9e9e0' />
-                  </zone-style>
-                </zone>
-                <zone fixed-size='241' h='35121' id='22' is-fixed='true' name='Bookings per month by Property category' w='27599' x='46149' y='30295'>
-                  <layout-cache cell-count-w='4' minheight='189' non-cell-size-w='78' type-h='scalable' type-w='cell' />
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                    <format attr='background-color' value='#f9e9e0' />
-                  </zone-style>
-                </zone>
-                <zone fixed-size='216' h='32038' id='30' is-fixed='true' name='Revenue per room category' w='24840' x='74904' y='33110'>
-                  <layout-cache minwidth='220' type-h='fixed' type-w='scalable' />
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                    <format attr='background-color' value='#f9e9e0' />
-                  </zone-style>
-                </zone>
-                <zone fixed-size='248' h='36059' id='18' is-fixed='true' name='Average rating per hotel' w='22529' x='22657' y='62735'>
-                  <layout-cache minwidth='240' type-h='fixed' type-w='scalable' />
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                    <format attr='background-color' value='#f9e9e0' />
-                  </zone-style>
-                </zone>
-                <zone fixed-size='249' h='36059' id='14' is-fixed='true' name='Total bookings for room class' w='21438' x='642' y='63405'>
+                <zone fixed-size='270' h='30889' id='32' is-fixed='true' name='Total bookings for room class' w='16813' x='32750' y='65444'>
                   <layout-cache cell-count-w='1' type-h='cell' type-w='cell' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -2763,29 +3172,36 @@
                     <format attr='border-width' value='0' />
                     <format attr='margin' value='4' />
                     <format attr='padding' value='0' />
-                    <format attr='background-color' value='#f9e9e0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='226' h='33244' id='32' is-fixed='true' name='Booking platform preference by room type' w='30680' x='68485' y='65416'>
-                  <layout-cache cell-count-w='7' non-cell-size-w='121' type-h='cell' type-w='cell' />
+                <zone fixed-size='267' h='30556' id='30' is-fixed='true' name='Booking platform preference by room type' w='28563' x='2625' y='65556'>
+                  <layout-cache cell-count-w='7' non-cell-size-w='120' type-h='cell' type-w='cell' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
                     <format attr='border-width' value='0' />
                     <format attr='margin' value='4' />
                     <format attr='padding' value='0' />
-                    <format attr='background-color' value='#f9e9e0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='226' h='33244' id='26' is-fixed='true' name='Booking staus count by month' w='22786' x='44994' y='65952'>
-                  <layout-cache cell-count-w='4' minheight='220' non-cell-size-w='78' type-h='scalable' type-w='cell' />
+                <zone fixed-size='263' h='30111' id='34' is-fixed='true' name='Average rating per hotel' w='18500' x='50938' y='65889'>
+                  <layout-cache minwidth='240' type-h='cell' type-w='scalable' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
                     <format attr='border-width' value='0' />
                     <format attr='margin' value='4' />
                     <format attr='padding' value='0' />
-                    <format attr='background-color' value='#f9e9e0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='263' h='30111' id='36' is-fixed='true' name='Booking staus count by month' w='26125' x='71000' y='66000'>
+                  <layout-cache cell-count-w='4' minheight='169' non-cell-size-w='78' type-h='scalable' type-w='cell' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
               </zone>
@@ -2799,11 +3215,11 @@
           </zones>
         </devicelayout>
       </devicelayouts>
-      <simple-id uuid='{FB28B988-68FE-4BC4-AEF0-71090A10DBB5}' />
+      <simple-id uuid='{22B60CB1-1C8D-4A53-9543-35DEA583762B}' />
     </dashboard>
   </dashboards>
   <windows pres-mode='true' source-height='44'>
-    <window class='dashboard' maximized='true' name='Hospitality Revenue Optimization Dashboard'>
+    <window class='dashboard' maximized='true' name='Hospitality Dashboard'>
       <viewpoints>
         <viewpoint name='Average rating per hotel'>
           <zoom type='entire-view' />
@@ -2831,6 +3247,10 @@
         </viewpoint>
         <viewpoint name='Revenue by city'>
           <zoom type='entire-view' />
+          <floating-toolbar-visibility value='2' />
+          <geo-search-visibility value='1' />
+          <map-navigation value='1' />
+          <layer-control toolbar-button-enabled='false' />
         </viewpoint>
         <viewpoint name='Revenue per room category'>
           <zoom type='entire-view' />
@@ -2845,8 +3265,8 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='14' />
-      <simple-id uuid='{0A64D524-DEE8-43CA-A432-494BD2375B0D}' />
+      <active id='49' />
+      <simple-id uuid='{BFE268DA-AF69-4529-9BE3-57F3101B17C4}' />
     </window>
     <window class='worksheet' name='Total revenue generated'>
       <cards>
@@ -3073,11 +3493,6 @@
             <card type='title' />
           </strip>
         </edge>
-        <edge name='right'>
-          <strip size='160'>
-            <card pane-specification-id='0' param='[federated.1dw7zvt169ov9910lky0d10tjyj2].[none:booking_status:nk]' type='color' />
-          </strip>
-        </edge>
       </cards>
       <viewpoint>
         <zoom type='entire-view' />
@@ -3158,7 +3573,10 @@
         </edge>
       </cards>
       <viewpoint>
-        <default-map-tool-selection tool='8' />
+        <floating-toolbar-visibility value='2' />
+        <geo-search-visibility value='1' />
+        <default-map-tool-selection tool='2' />
+        <layer-control toolbar-button-enabled='false' />
       </viewpoint>
       <simple-id uuid='{A935CB5A-446D-409F-8C63-8CB4AE87CC40}' />
     </window>
